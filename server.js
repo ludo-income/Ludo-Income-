@@ -139,12 +139,12 @@ app.delete("/api/admin/matches/:id", auth, (req, res) => {
 });
 
 /* IMPORTANT: /admin is handled before the public fallback. */
-app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "admin", "index.html")));
-app.get("/admin/", (req, res) => res.sendFile(path.join(__dirname, "admin", "index.html")));
-app.use("/admin", express.static(path.join(__dirname, "admin")));
+app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "admin.html")));
+app.get("/admin/", (req, res) => res.sendFile(path.join(__dirname, "admin.html")));
+app.use("/admin", express.static(__dirname));
 
-app.use(express.static(path.join(__dirname, "public")));
-app.get("*", (req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
+app.use(express.static(__dirname));
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log("Ludo Income server running on port " + PORT);

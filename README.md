@@ -1,23 +1,21 @@
-# Ludo Income — Render Fixed
+# Ludo Income Render FINAL Flat
 
-This ZIP is intentionally flat at the repository root.
+Everything needed for Render is at the repository root. No public/ or admin/ folder is required.
 
-## Render
-Root Directory: leave empty
-Build Command: npm install
-Start Command: npm start
+Render:
+- Root Directory: empty
+- Build Command: npm install
+- Start Command: npm start
 
-## URLs
-Main: /
-Admin: /admin
-Health: /health
+Routes:
+- / -> index.html
+- /admin -> admin.html
+- /admin/ -> admin.html
+- /health -> health JSON
 
-## Environment Variables
-JWT_SECRET = a long random secret
-ADMIN_EMAIL = your admin email
-ADMIN_PASSWORD = your initial admin password
+Environment:
+JWT_SECRET
+ADMIN_EMAIL
+ADMIN_PASSWORD
 
-## Important
-Do not commit .env or secrets to GitHub.
-
-The admin settings and password hash are stored in data/db.json. Render's local filesystem is not a durable database for production; use a persistent external database for permanent data.
+Important: this demo stores settings in data/db.json in the earlier version; this final flat version keeps the app code self-contained. For production persistence, use an external database.
