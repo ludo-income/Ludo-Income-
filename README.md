@@ -1,17 +1,23 @@
-# Ludo Income - Render Ready
+# Ludo Income — Render Fixed
 
-## Deploy
-- Root Directory: empty
-- Build Command: `npm install`
-- Start Command: `npm start`
-- Environment variables: `JWT_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`
+This ZIP is intentionally flat at the repository root.
 
-Default demo login if variables are unchanged:
-- Email: admin@example.com
-- Password: ChangeThisPassword123!
+## Render
+Root Directory: leave empty
+Build Command: npm install
+Start Command: npm start
 
 ## URLs
-- `/` main page
-- `/admin` admin panel
+Main: /
+Admin: /admin
+Health: /health
 
-The admin panel controls the main page through backend APIs. Settings and matches are stored in `data/db.json`. On Render, the default filesystem is ephemeral; for durable production data, connect a database and move credentials/settings there.
+## Environment Variables
+JWT_SECRET = a long random secret
+ADMIN_EMAIL = your admin email
+ADMIN_PASSWORD = your initial admin password
+
+## Important
+Do not commit .env or secrets to GitHub.
+
+The admin settings and password hash are stored in data/db.json. Render's local filesystem is not a durable database for production; use a persistent external database for permanent data.

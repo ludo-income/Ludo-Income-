@@ -1,1 +1,41 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ludo Income</title><style>:root{--p:#6d28d9}*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f6f7fb;color:#172033}header{background:var(--p);color:#fff;padding:18px 22px}main{max-width:1000px;margin:auto;padding:25px}.hero{background:#fff;border-radius:18px;padding:28px;box-shadow:0 5px 20px #0000000b}.notice{padding:12px 15px;background:#f1eaff;border-radius:10px;margin:18px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.card{background:#fff;padding:20px;border-radius:15px;box-shadow:0 5px 20px #0000000b}.status{font-weight:700;color:#059669}@media(max-width:600px){main{padding:15px}}</style></head><body><header><strong id="siteName">Ludo Income</strong></header><main><section class="hero"><h1 id="tagline">Play. Compete. Enjoy.</h1><p>Welcome to Ludo Income.</p><div id="notice" class="notice"></div><p id="support"></p></section><h2>Matches</h2><div id="matches" class="grid"></div></main><script>async function load(){try{const r=await fetch('/api/site');const d=await r.json();document.documentElement.style.setProperty('--p',d.settings.primaryColor||'#6d28d9');siteName.textContent=d.settings.siteName;tagline.textContent=d.settings.tagline;notice.textContent=d.settings.notice;notice.style.display=d.settings.showNotice?'block':'none';support.textContent=d.settings.support?('Support: '+d.settings.support):'';if(d.settings.maintenance){document.body.innerHTML='<main><section class="hero"><h1>Maintenance Mode</h1><p>Please check back later.</p></section></main>';return}matches.innerHTML=d.matches.map(m=>`<div class="card"><h3>${esc(m.name)}</h3><p>${esc(m.time)}</p><p>${esc(m.players)}</p><p class="status">${esc(m.status)}</p></div>`).join('')||'<div class="card">No matches available.</div>'}catch(e){console.error(e)}}function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}load();</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ludo Income</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f5f7fb;color:#172033}
+header{padding:18px 22px;background:#111827;color:#fff}
+main{max-width:1000px;margin:auto;padding:24px}
+.card{background:#fff;padding:20px;border-radius:14px;margin-bottom:16px;border:1px solid #e5e7eb}
+.notice{padding:12px;border-radius:10px;background:#ede9fe}
+.match{padding:14px 0;border-top:1px solid #eee}
+a{color:#6d28d9}
+</style>
+</head>
+<body>
+<header><h2 id="siteName">Ludo Income</h2><div id="tagline">Loading...</div></header>
+<main>
+<div id="maintenance" class="card" style="display:none"><b>Maintenance Mode</b><p>The site is temporarily unavailable.</p></div>
+<div id="notice" class="card notice"></div>
+<div class="card"><h3>Matches</h3><div id="matches">Loading...</div></div>
+<div class="card"><b>Support:</b> <span id="support"></span></div>
+</main>
+<script>
+async function load(){
+ const r=await fetch('/api/site'); const d=await r.json(); const s=d.settings||{};
+ document.title=s.siteName||'Ludo Income';
+ document.getElementById('siteName').textContent=s.siteName||'Ludo Income';
+ document.getElementById('tagline').textContent=s.tagline||'';
+ document.getElementById('support').textContent=s.support||'';
+ document.getElementById('notice').textContent=s.notice||'';
+ document.getElementById('notice').style.display=s.showNotice?'block':'none';
+ document.getElementById('maintenance').style.display=s.maintenance?'block':'none';
+ document.documentElement.style.setProperty('--primary',s.primaryColor||'#6d28d9');
+ const ms=d.matches||[];
+ document.getElementById('matches').innerHTML=ms.length?ms.map(m=>`<div class="match"><b>${esc(m.name)}</b><br><small>${esc(m.time)} · ${esc(m.players)} · ${esc(m.status)}</small></div>`).join(''):'<span>No matches available.</span>';
+}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+load();
+</script>
+</body></html>
