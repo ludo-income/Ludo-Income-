@@ -1,9 +1,11 @@
 {
-  "name": "ludo-income",
-  "version": "1.1.0",
+  "name": "ludo-income-admin-controlled",
+  "version": "1.0.0",
   "private": true,
-  "description": "Ludo Income web app with admin route",
-  "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "engines": { "node": ">=18" }
+  "scripts": {"start": "node server.js"},
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
+  }
 }

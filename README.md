@@ -1,11 +1,17 @@
 # Ludo Income - Render Ready
 
-Start command: npm start
+## Deploy
+- Root Directory: empty
+- Build Command: `npm install`
+- Start Command: `npm start`
+- Environment variables: `JWT_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`
 
-Routes:
-- / -> main site
-- /admin -> admin panel
-- /admin/ -> admin panel
-- /admin/index.html -> admin panel
+Default demo login if variables are unchanged:
+- Email: admin@example.com
+- Password: ChangeThisPassword123!
 
-Admin is kept as a root-level `admin.html` so Render file uploads do not lose the admin directory.
+## URLs
+- `/` main page
+- `/admin` admin panel
+
+The admin panel controls the main page through backend APIs. Settings and matches are stored in `data/db.json`. On Render, the default filesystem is ephemeral; for durable production data, connect a database and move credentials/settings there.

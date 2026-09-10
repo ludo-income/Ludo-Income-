@@ -1,0 +1,15 @@
+{
+  "settings": {
+    "siteName": "Ludo Income",
+    "tagline": "Play. Compete. Enjoy.",
+    "notice": "Welcome to Ludo Income",
+    "support": "Support available from Admin Panel",
+    "maintenance": false,
+    "showNotice": true,
+    "primaryColor": "#6d28d9"
+  },
+  "matches": [
+    {"id":"LD1001","name":"Classic Ludo","time":"Today 08:00 PM","players":"2 Players","status":"Open"},
+    {"id":"LD1002","name":"Pro Ludo","time":"Today 09:00 PM","players":"4 Players","status":"Open"}
+  ]
+}
