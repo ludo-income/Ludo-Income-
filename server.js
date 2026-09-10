@@ -5,7 +5,7 @@ const { URL } = require('url');
 
 const PORT = Number(process.env.PORT) || 10000;
 const ROOT = __dirname;
-const ADMIN = path.join(ROOT, 'admin', 'index.html');
+const ADMIN = path.join(ROOT, 'admin.html');
 const HOME = path.join(ROOT, 'index.html');
 
 const MIME = {

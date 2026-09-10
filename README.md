@@ -1,8 +1,11 @@
-# Ludo Income
+# Ludo Income - Render Ready
 
-Render settings:
-- Root Directory: leave blank
-- Build Command: npm install
-- Start Command: npm start
+Start command: npm start
 
-Admin panel: /admin
+Routes:
+- / -> main site
+- /admin -> admin panel
+- /admin/ -> admin panel
+- /admin/index.html -> admin panel
+
+Admin is kept as a root-level `admin.html` so Render file uploads do not lose the admin directory.
