@@ -1,13 +1,9 @@
 {
   "name": "ludo-income",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "Ludo Income web frontend served by a minimal Node.js server",
+  "description": "Ludo Income web app with admin route",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "engines": {
-    "node": ">=18"
-  }
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
 }
