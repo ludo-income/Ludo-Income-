@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ludo Income — Admin Panel</title>
+<style>
+:root{
+  --bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#64748b;
+  --primary:#6d28d9;--primary2:#7c3aed;--border:#e7eaf0;
+  --success:#059669;--warning:#d97706;--danger:#dc2626;
+  --sidebar:#111827;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.layout{min-height:100vh;display:flex}
+.sidebar{width:250px;background:var(--sidebar);color:#fff;position:fixed;inset:0 auto 0 0;padding:20px 14px;z-index:30;transition:.25s}
+.brand{font-size:22px;font-weight:800;padding:8px 10px 24px}
+.brand span{color:#a78bfa}
+.nav-title{font-size:11px;color:#94a3b8;padding:12px 10px 7px;text-transform:uppercase;letter-spacing:1px}
+.nav button{width:100%;border:0;background:transparent;color:#cbd5e1;text-align:left;padding:12px 13px;border-radius:10px;margin:2px 0}
+.nav button:hover,.nav button.active{background:#312e81;color:#fff}
+.main{margin-left:250px;width:calc(100% - 250px)}
+.topbar{height:70px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:20}
+.menu-btn{display:none;border:0;background:#f1f5f9;padding:9px;border-radius:8px}
+.admin{display:flex;align-items:center;gap:10px}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#ede9fe;color:#5b21b6;font-weight:800}
+.content{padding:28px}
+.page{display:none}.page.active{display:block}
+.page-head{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:22px}
+.page-head h1{font-size:24px}.page-head p{color:var(--muted);margin-top:5px}
+.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:20px;box-shadow:0 4px 16px rgba(15,23,42,.04)}
+.stat{display:flex;justify-content:space-between;align-items:flex-start}.stat .icon{font-size:24px}.stat small{color:var(--muted)}.stat h2{font-size:25px;margin-top:8px}
+.two{grid-template-columns:2fr 1fr;margin-top:18px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.section-title h2{font-size:17px}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:700px}.table th,.table td{text-align:left;padding:13px 12px;border-bottom:1px solid var(--border);font-size:13px}.table th{color:var(--muted);font-weight:600;background:#fafafa}
+.badge{display:inline-block;padding:5px 8px;border-radius:20px;font-size:11px;font-weight:700}.green{background:#dcfce7;color:#166534}.orange{background:#ffedd5;color:#9a3412}.red{background:#fee2e2;color:#991b1b}.purple{background:#ede9fe;color:#5b21b6}.blue{background:#dbeafe;color:#1d4ed8}
+.btn{border:0;border-radius:8px;padding:9px 13px;font-weight:700}.primary{background:var(--primary);color:#fff}.secondary{background:#eef2f7;color:#334155}.danger{background:#fee2e2;color:#b91c1c}.success{background:#dcfce7;color:#166534}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:15px}.search{border:1px solid var(--border);background:#fff;border-radius:8px;padding:10px 12px;min-width:220px;outline:none}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select{width:100%;padding:11px;border:1px solid var(--border);border-radius:8px;background:#fff}
+.setting-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--border)}.setting-row:last-child{border:0}.setting-row p{color:var(--muted);font-size:13px;margin-top:4px}
+.switch{position:relative;width:45px;height:24px}.switch input{display:none}.slider{position:absolute;inset:0;background:#cbd5e1;border-radius:20px}.slider:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}.switch input:checked+.slider{background:var(--primary)}.switch input:checked+.slider:before{transform:translateX(21px)}
+.chart{height:240px;display:flex;align-items:flex-end;gap:10px;padding:20px 5px 5px}.bar{flex:1;background:#8b5cf6;border-radius:7px 7px 2px 2px;min-height:20px;position:relative}.bar span{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--muted)}
+.activity{display:grid;gap:10px}.activity div{padding:11px;background:#f8fafc;border-radius:9px;font-size:13px}
+.modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:50;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-box{background:#fff;border-radius:15px;width:100%;max-width:520px;padding:22px}.modal-head{display:flex;justify-content:space-between;margin-bottom:18px}.close{border:0;background:#f1f5f9;border-radius:7px;padding:5px 9px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.toast{position:fixed;right:20px;bottom:20px;background:#111827;color:#fff;padding:13px 16px;border-radius:9px;display:none;z-index:100}.toast.show{display:block}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}
+@media(max-width:760px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%}.menu-btn{display:block}.topbar{padding:0 16px}.content{padding:18px}.stats{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">Ludo <span>Income</span></div>
+  <div class="nav">
+    <div class="nav-title">Main</div>
+    <button class="active" onclick="showPage('dashboard',this)">📊 Dashboard</button>
+    <button onclick="showPage('users',this)">👥 Users</button>
+    <button onclick="showPage('matches',this)">🎮 Matches</button>
+    <button onclick="showPage('results',this)">🏆 Results</button>
+    <button onclick="showPage('transactions',this)">💳 Transactions</button>
+    <div class="nav-title">System</div>
+    <button onclick="showPage('settings',this)">⚙️ Settings</button>
+    <button onclick="showPage('logs',this)">🛡️ Activity Logs</button>
+  </div>
+</aside>
+
+<div class="main">
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <b id="topTitle">Dashboard</b>
+  </div>
+  <div class="admin"><div><b>Super Admin</b><br><small style="color:#64748b">Administrator</small></div><div class="avatar">A</div></div>
+</header>
+
+<main class="content">
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="page active">
+  <div class="page-head"><div><h1>Dashboard</h1><p>Platform overview and recent activity.</p></div><button class="btn primary" onclick="toast('Dashboard refreshed')">↻ Refresh</button></div>
+  <div class="grid stats">
+    <div class="card stat"><div><small>Total Users</small><h2>12,540</h2><small>+8.4% this month</small></div><div class="icon">👥</div></div>
+    <div class="card stat"><div><small>Active Matches</small><h2>348</h2><small>24 running now</small></div><div class="icon">🎮</div></div>
+    <div class="card stat"><div><small>Pending Results</small><h2>27</h2><small>Needs review</small></div><div class="icon">🏆</div></div>
+    <div class="card stat"><div><small>Pending Requests</small><h2>31</h2><small>Needs attention</small></div><div class="icon">💳</div></div>
+  </div>
+  <div class="grid two">
+    <div class="card"><div class="section-title"><h2>Match Activity</h2><select class="search" style="min-width:120px;padding:7px"><option>Last 7 days</option><option>Last 30 days</option></select></div><div class="chart"><div class="bar" style="height:48%"><span>Mon</span></div><div class="bar" style="height:67%"><span>Tue</span></div><div class="bar" style="height:55%"><span>Wed</span></div><div class="bar" style="height:82%"><span>Thu</span></div><div class="bar" style="height:62%"><span>Fri</span></div><div class="bar" style="height:91%"><span>Sat</span></div><div class="bar" style="height:73%"><span>Sun</span></div></div></div>
+    <div class="card"><div class="section-title"><h2>Recent Activity</h2></div><div class="activity"><div>👤 New user registered <b>2m</b></div><div>🏆 Result submitted <b>8m</b></div><div>🎮 Match completed <b>14m</b></div><div>💳 Transaction pending <b>22m</b></div></div></div>
+  </div>
+</section>
+
+<!-- USERS -->
+<section id="users" class="page">
+  <div class="page-head"><div><h1>Users</h1><p>Manage platform accounts.</p></div><button class="btn primary" onclick="openUserModal()">+ Add User</button></div>
+  <div class="card"><div class="toolbar"><input class="search" id="userSearch" placeholder="Search name, email or ID..." oninput="filterTable('userTable',this.value)"><select class="search" style="min-width:140px"><option>All Status</option><option>Active</option><option>Blocked</option></select></div>
+  <div class="table-wrap"><table class="table" id="userTable"><thead><tr><th>ID</th><th>User</th><th>Contact</th><th>Gaming</th><th>Winning</th><th>Status</th><th>Action</th></tr></thead><tbody>
+  <tr><td>#10021</td><td><b>Rakib Ahmed</b></td><td>user@example.com</td><td>1,250</td><td>850</td><td><span class="badge green">Active</span></td><td><button class="btn secondary" onclick="toast('User details opened')">View</button></td></tr>
+  <tr><td>#10020</td><td><b>Hasan Ali</b></td><td>hasan@example.com</td><td>800</td><td>420</td><td><span class="badge green">Active</span></td><td><button class="btn secondary" onclick="toast('User details opened')">View</button></td></tr>
+  <tr><td>#10019</td><td><b>Demo User</b></td><td>demo@example.com</td><td>0</td><td>0</td><td><span class="badge red">Blocked</span></td><td><button class="btn success" onclick="toast('User unblocked')">Unblock</button></td></tr>
+  </tbody></table></div></div>
+</section>
+
+<!-- MATCHES -->
+<section id="matches" class="page">
+  <div class="page-head"><div><h1>Matches</h1><p>Create and manage Ludo matches.</p></div><button class="btn primary" onclick="openMatchModal()">+ Create Match</button></div>
+  <div class="card"><div class="toolbar"><input class="search" placeholder="Search match / room ID..."><select class="search" style="min-width:150px"><option>All Status</option><option>Open</option><option>Running</option><option>Completed</option><option>Cancelled</option></select></div>
+  <div class="table-wrap"><table class="table"><thead><tr><th>Match</th><th>Room ID</th><th>Players</th><th>Entry</th><th>Prize</th><th>Status</th><th>Action</th></tr></thead><tbody>
+  <tr><td><b>Classic Ludo</b></td><td>LD1025</td><td>4 / 4</td><td>100 🪙</td><td>350 🪙</td><td><span class="badge blue">Running</span></td><td><button class="btn secondary" onclick="toast('Match details opened')">Manage</button></td></tr>
+  <tr><td><b>Pro Tournament</b></td><td>LD2041</td><td>1 / 2</td><td>200 🪙</td><td>700 🪙</td><td><span class="badge green">Open</span></td><td><button class="btn secondary" onclick="toast('Match details opened')">Manage</button></td></tr>
+  <tr><td><b>Fast Match</b></td><td>LD3088</td><td>2 / 2</td><td>50 🪙</td><td>170 🪙</td><td><span class="badge purple">Completed</span></td><td><button class="btn secondary" onclick="toast('Match details opened')">View</button></td></tr>
+  </tbody></table></div></div>
+</section>
+
+<!-- RESULTS -->
+<section id="results" class="page">
+  <div class="page-head"><div><h1>Result Management</h1><p>Review submitted match results.</p></div><span class="badge orange">27 Pending</span></div>
+  <div class="card"><div class="table-wrap"><table class="table"><thead><tr><th>Match</th><th>User</th><th>Room</th><th>Submitted</th><th>Status</th><th>Action</th></tr></thead><tbody>
+  <tr><td>#LD4012</td><td>Rakib Ahmed</td><td>RM8842</td><td>10:21 AM</td><td><span class="badge orange">Pending</span></td><td class="actions"><button class="btn success" onclick="approve(this)">Approve</button><button class="btn danger" onclick="reject(this)">Reject</button></td></tr>
+  <tr><td>#LD4011</td><td>Hasan Ali</td><td>RM7712</td><td>10:10 AM</td><td><span class="badge orange">Pending</span></td><td class="actions"><button class="btn success" onclick="approve(this)">Approve</button><button class="btn danger" onclick="reject(this)">Reject</button></td></tr>
+  </tbody></table></div></div>
+</section>
+
+<!-- TRANSACTIONS -->
+<section id="transactions" class="page">
+  <div class="page-head"><div><h1>Transactions</h1><p>Review account transaction requests.</p></div></div>
+  <div class="grid stats">
+    <div class="card"><small style="color:#64748b">Pending Deposits</small><h2>18</h2></div>
+    <div class="card"><small style="color:#64748b">Pending Withdrawals</small><h2>13</h2></div>
+    <div class="card"><small style="color:#64748b">Completed Today</small><h2>264</h2></div>
+    <div class="card"><small style="color:#64748b">Flagged</small><h2>4</h2></div>
+  </div>
+  <div class="card" style="margin-top:18px"><div class="toolbar"><input class="search" placeholder="Search transaction ID / user..."><select class="search" style="min-width:150px"><option>All Types</option><option>Deposit</option><option>Withdrawal</option></select></div>
+  <div class="table-wrap"><table class="table"><thead><tr><th>TX ID</th><th>User</th><th>Type</th><th>Amount</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody>
+  <tr><td>#TX90231</td><td>Rakib Ahmed</td><td>Deposit</td><td>500 🪙</td><td>Today 10:12</td><td><span class="badge orange">Pending</span></td><td class="actions"><button class="btn success" onclick="approve(this)">Approve</button><button class="btn danger" onclick="reject(this)">Reject</button></td></tr>
+  <tr><td>#TX90230</td><td>Hasan Ali</td><td>Withdrawal</td><td>300 🪙</td><td>Today 09:55</td><td><span class="badge orange">Pending</span></td><td class="actions"><button class="btn success" onclick="approve(this)">Approve</button><button class="btn danger" onclick="reject(this)">Reject</button></td></tr>
+  </tbody></table></div></div>
+</section>
+
+<!-- SETTINGS -->
+<section id="settings" class="page">
+  <div class="page-head"><div><h1>Settings</h1><p>Configure admin-side preferences. Connect these controls to your backend before production.</p></div><button class="btn primary" onclick="toast('Settings saved locally (demo)')">Save Changes</button></div>
+  <div class="card">
+    <div class="setting-row"><div><b>Maintenance Mode</b><p>Temporarily disable user access.</p></div><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+    <div class="setting-row"><div><b>New User Registration</b><p>Allow new accounts to be created.</p></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+    <div class="setting-row"><div><b>Match Creation</b><p>Allow admins to create new matches.</p></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+    <div class="setting-row"><div><b>Result Auto-Processing</b><p>Keep disabled until your backend validation is implemented.</p></div><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+    <div class="form-grid" style="margin-top:20px">
+      <div class="field"><label>Site Name</label><input value="Ludo Income"></div>
+      <div class="field"><label>Support Email</label><input value="support@example.com"></div>
+      <div class="field"><label>Default Match Timeout</label><input type="number" value="10"></div>
+      <div class="field"><label>Timezone</label><select><option>Asia/Dhaka</option><option>UTC</option></select></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGS -->
+<section id="logs" class="page">
+  <div class="page-head"><div><h1>Activity Logs</h1><p>Audit trail for administrative actions.</p></div></div>
+  <div class="card"><div class="table-wrap"><table class="table"><thead><tr><th>Time</th><th>Admin</th><th>Action</th><th>Target</th><th>IP</th></tr></thead><tbody>
+  <tr><td>10:25 AM</td><td>Super Admin</td><td>Approved result</td><td>#LD4012</td><td>—</td></tr>
+  <tr><td>10:19 AM</td><td>Super Admin</td><td>Opened user</td><td>#10021</td><td>—</td></tr>
+  <tr><td>09:55 AM</td><td>Match Manager</td><td>Created match</td><td>#LD5001</td><td>—</td></tr>
+  </tbody></table></div></div>
+</section>
+
+</main>
+</div>
+</div>
+
+<!-- USER MODAL -->
+<div class="modal" id="userModal"><div class="modal-box">
+  <div class="modal-head"><h2>Add User</h2><button class="close" onclick="closeModal('userModal')">✕</button></div>
+  <div class="form-grid"><div class="field"><label>Name</label><input id="newName" placeholder="Full name"></div><div class="field"><label>Email</label><input placeholder="Email"></div></div>
+  <div class="modal-actions"><button class="btn secondary" onclick="closeModal('userModal')">Cancel</button><button class="btn primary" onclick="addUser()">Create User</button></div>
+</div></div>
+
+<!-- MATCH MODAL -->
+<div class="modal" id="matchModal"><div class="modal-box">
+  <div class="modal-head"><h2>Create Match</h2><button class="close" onclick="closeModal('matchModal')">✕</button></div>
+  <div class="form-grid"><div class="field"><label>Match Name</label><input id="matchName" placeholder="Classic Ludo"></div><div class="field"><label>Room ID</label><input id="roomId" placeholder="LD5001"></div><div class="field"><label>Players</label><select><option>2</option><option>4</option></select></div><div class="field"><label>Entry (virtual coins)</label><input type="number" value="100"></div></div>
+  <div class="modal-actions"><button class="btn secondary" onclick="closeModal('matchModal')">Cancel</button><button class="btn primary" onclick="createMatch()">Create Match</button></div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const titles={dashboard:'Dashboard',users:'Users',matches:'Matches',results:'Results',transactions:'Transactions',settings:'Settings',logs:'Activity Logs'};
+  document.getElementById('topTitle').textContent=titles[id];
+  document.getElementById('sidebar').classList.remove('open');
+}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+function toast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+function openUserModal(){document.getElementById('userModal').classList.add('show')}
+function openMatchModal(){document.getElementById('matchModal').classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function addUser(){
+  const name=document.getElementById('newName').value.trim();
+  if(!name){toast('Enter a user name');return}
+  toast('Demo user created: '+name);closeModal('userModal');
+}
+function createMatch(){
+  const name=document.getElementById('matchName').value.trim();
+  if(!name){toast('Enter match name');return}
+  toast('Demo match created: '+name);closeModal('matchModal');
+}
+function approve(btn){
+  const row=btn.closest('tr');row.querySelector('.badge').className='badge green';row.querySelector('.badge').textContent='Approved';
+  row.querySelector('.actions').innerHTML='<span class="badge green">Done</span>';toast('Approved (demo)');
+}
+function reject(btn){
+  const row=btn.closest('tr');row.querySelector('.badge').className='badge red';row.querySelector('.badge').textContent='Rejected';
+  row.querySelector('.actions').innerHTML='<span class="badge red">Done</span>';toast('Rejected (demo)');
+}
+function filterTable(tableId,q){
+  q=q.toLowerCase();document.querySelectorAll('#'+tableId+' tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?'':'none');
+}
+window.addEventListener('click',e=>{
+  if(e.target.classList.contains('modal'))e.target.classList.remove('show');
+});
+</script>
+</body>
+</html>
