@@ -1,0 +1,642 @@
+{
+  "site": {
+    "name": "Ludo Baji",
+    "logo": "logo-ludo-baji.jpg"
+  },
+  "adminMenus": [
+    {
+      "id": "dashboard",
+      "name": "Dashboard",
+      "icon": "🏠",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "total-users",
+      "name": "Total Users",
+      "icon": "👥",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "active-users",
+      "name": "Active Users",
+      "icon": "🟢",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "deposit-management",
+      "name": "Deposit Management",
+      "icon": "💳",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "withdrawal-management",
+      "name": "Withdrawal Management",
+      "icon": "💸",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "user-balance-management",
+      "name": "User Balance Management",
+      "icon": "💰",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "gaming-balance",
+      "name": "Gaming Balance",
+      "icon": "🎮",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "winning-balance",
+      "name": "Winning Balance",
+      "icon": "🏆",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "match-create",
+      "name": "Match Create",
+      "icon": "➕",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "tournament-create",
+      "name": "Tournament Create",
+      "icon": "🏟️",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "match-schedule",
+      "name": "Match Schedule",
+      "icon": "📅",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "room-id-management",
+      "name": "Room ID Management",
+      "icon": "🔑",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "screenshot-verification",
+      "name": "Screenshot Verification",
+      "icon": "🖼️",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "prize-approval",
+      "name": "Prize Approval",
+      "icon": "🎁",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "user-block-unblock",
+      "name": "User Block/Unblock",
+      "icon": "🚫",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "referral-management",
+      "name": "Referral Management",
+      "icon": "🔗",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "support-live-chat",
+      "name": "Support/Live Chat",
+      "icon": "💬",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "payment-method-management",
+      "name": "Payment Method Management",
+      "icon": "💳",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "deposit-withdrawal-history",
+      "name": "Deposit/Withdrawal History",
+      "icon": "📜",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "transaction-history",
+      "name": "Transaction History",
+      "icon": "🧾",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "user-search",
+      "name": "User Search",
+      "icon": "🔎",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "user-details",
+      "name": "User Details",
+      "icon": "👤",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "notifications",
+      "name": "Notifications",
+      "icon": "🔔",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "banner-management",
+      "name": "Banner Management",
+      "icon": "🖼️",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "homepage-settings",
+      "name": "Homepage Settings",
+      "icon": "🏠",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "faq-management",
+      "name": "FAQ Management",
+      "icon": "❓",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "rules-terms-management",
+      "name": "Rules & Terms Management",
+      "icon": "📋",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "admin-roles-permissions",
+      "name": "Admin roles/permissions",
+      "icon": "🛡️",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "reports",
+      "name": "Reports",
+      "icon": "📊",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "settings",
+      "name": "Settings",
+      "icon": "⚙️",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "payment-methods",
+      "name": "Payment Methods",
+      "icon": "💳",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "user-management",
+      "name": "User Management",
+      "icon": "👥",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "match-list",
+      "name": "Match List",
+      "icon": "📋",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "admin-roles",
+      "name": "Admin Roles",
+      "icon": "🛡️",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "audit-log",
+      "name": "Audit Log",
+      "icon": "🧾",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "rules-management",
+      "name": "Rules & Terms",
+      "icon": "📜",
+      "logo": "",
+      "visible": true
+    },
+    {
+      "id": "support-management",
+      "name": "Support",
+      "icon": "💬",
+      "logo": "",
+      "visible": true
+    }
+  ],
+  "mainOptions": [
+    {
+      "id": "match",
+      "name": "Ludo Matches",
+      "icon": "🎮",
+      "logo": "",
+      "content": "Ludo Matches system-এর content এখানে Auto Show হবে।",
+      "visible": true,
+      "order": 1,
+      "short_name": "",
+      "button_text": "",
+      "action": "auto",
+      "background": "#092d21",
+      "text_color": "#ffffff",
+      "border_radius": 12
+    },
+    {
+      "id": "deposit",
+      "name": "Deposit",
+      "icon": "💳",
+      "logo": "",
+      "content": "Deposit system-এর content এখানে Auto Show হবে।",
+      "visible": true,
+      "order": 2,
+      "short_name": "",
+      "button_text": "",
+      "action": "auto",
+      "background": "#092d21",
+      "text_color": "#ffffff",
+      "border_radius": 12
+    },
+    {
+      "id": "statement",
+      "name": "My Statement",
+      "icon": "🏷️",
+      "logo": "",
+      "content": "My Statement system-এর content এখানে Auto Show হবে।",
+      "visible": true,
+      "order": 3,
+      "short_name": "",
+      "button_text": "",
+      "action": "auto",
+      "background": "#092d21",
+      "text_color": "#ffffff",
+      "border_radius": 12
+    },
+    {
+      "id": "withdraw",
+      "name": "Withdraw",
+      "icon": "💰",
+      "logo": "",
+      "content": "Withdraw system-এর content এখানে Auto Show হবে।",
+      "visible": true,
+      "order": 4,
+      "short_name": "",
+      "button_text": "",
+      "action": "auto",
+      "background": "#092d21",
+      "text_color": "#ffffff",
+      "border_radius": 12
+    },
+    {
+      "id": "support",
+      "name": "Support",
+      "icon": "✅",
+      "logo": "",
+      "content": "Support system-এর content এখানে Auto Show হবে।",
+      "visible": true,
+      "order": 5,
+      "short_name": "",
+      "button_text": "",
+      "action": "auto",
+      "background": "#092d21",
+      "text_color": "#ffffff",
+      "border_radius": 12
+    },
+    {
+      "id": "mymatch",
+      "name": "My Match",
+      "icon": "🎮",
+      "logo": "",
+      "content": "My Match system-এর content এখানে Auto Show হবে।",
+      "visible": true,
+      "order": 6,
+      "short_name": "",
+      "button_text": "",
+      "action": "auto",
+      "background": "#092d21",
+      "text_color": "#ffffff",
+      "border_radius": 12
+    },
+    {
+      "id": "notifications",
+      "name": "Notifications",
+      "icon": "🔔",
+      "logo": "",
+      "content": "Notifications system-এর content এখানে Auto Show হবে。",
+      "visible": true,
+      "order": 7,
+      "short_name": "",
+      "button_text": "",
+      "action": "auto",
+      "background": "#092d21",
+      "text_color": "#ffffff",
+      "border_radius": 12
+    },
+    {
+      "id": "referral",
+      "name": "Referral",
+      "icon": "🔗",
+      "logo": "",
+      "content": "Referral system-এর content এখানে Auto Show হবে。",
+      "visible": true,
+      "order": 8,
+      "short_name": "",
+      "button_text": "",
+      "action": "auto",
+      "background": "#092d21",
+      "text_color": "#ffffff",
+      "border_radius": 12
+    },
+    {
+      "id": "leaderboard",
+      "name": "Leaderboard",
+      "icon": "🏆",
+      "logo": "",
+      "content": "Leaderboard system-এর content এখানে Auto Show হবে。",
+      "visible": true,
+      "order": 9,
+      "short_name": "",
+      "button_text": "",
+      "action": "auto",
+      "background": "#092d21",
+      "text_color": "#ffffff",
+      "border_radius": 12
+    }
+  ],
+  "paymentMethods": [
+    {
+      "id": "bkash",
+      "name": "bKash Personal",
+      "number": "01301470686",
+      "account_name": "Ludo Baji",
+      "logo": "bkash.jpg",
+      "enabled": true,
+      "min_deposit": 50,
+      "max_deposit": 1000000,
+      "instructions": "bKash Personal-এ Send Money করে Transaction ID দিন।",
+      "provider": "bkash",
+      "order": 1,
+      "account_type": "Personal"
+    },
+    {
+      "id": "bkash_merchant",
+      "name": "bKash Merchant",
+      "number": "01301470686",
+      "account_name": "Ludo Baji",
+      "logo": "bkash-merchant.jpg",
+      "enabled": true,
+      "min_deposit": 50,
+      "max_deposit": 1000000,
+      "instructions": "bKash Merchant-এ Payment করে Transaction ID দিন।",
+      "provider": "bkash",
+      "order": 2,
+      "account_type": "Merchant"
+    },
+    {
+      "id": "nagad",
+      "name": "Nagad Personal",
+      "number": "01806097369",
+      "account_name": "Ludo Baji",
+      "logo": "nagad.jpg",
+      "enabled": true,
+      "min_deposit": 50,
+      "max_deposit": 1000000,
+      "instructions": "Nagad Personal-এ Send Money করে Transaction ID দিন।",
+      "provider": "nagad",
+      "order": 3,
+      "account_type": "Personal"
+    }
+  ],
+  "matches": [
+    {
+      "id": "M-17892131151319xl",
+      "match_code": "LB1789213115131",
+      "title": "Special Match~~~~99",
+      "entry_fee": 50,
+      "winning_amount": 90,
+      "max_players": 2,
+      "scheduled_at": "2026-09-12T11:38:35.131Z",
+      "status": "open",
+      "room_id": "998877",
+      "room_password": "",
+      "rules": "সিট ফুল হলে রুম আইডি দেওয়া হবে",
+      "players": [],
+      "winner_user_id": null,
+      "prize_status": "pending",
+      "result_submissions": [],
+      "created_at": "2026-09-12T11:38:35.131Z",
+      "updated_at": "2026-09-12T11:38:35.131Z"
+    },
+    {
+      "id": "M-1789100626304wm4",
+      "match_code": "LB1789100626304",
+      "title": "Test Match",
+      "entry_fee": 0,
+      "winning_amount": 100,
+      "max_players": 2,
+      "scheduled_at": "2026-09-11T12:00:00Z",
+      "status": "open",
+      "room_id": "123456",
+      "room_password": "pass",
+      "rules": "Play fair",
+      "players": [],
+      "winner_user_id": null,
+      "prize_status": "pending",
+      "created_at": "2026-09-11T04:23:46.304Z",
+      "updated_at": "2026-09-11T04:23:46.912Z"
+    }
+  ],
+  "banners": [],
+  "faqs": [],
+  "pages": {
+    "rules": "",
+    "terms": "",
+    "privacy": "",
+    "deposit_rules": "",
+    "withdrawal_rules": "",
+    "refund_rules": ""
+  },
+  "referral": {
+    "enabled": true,
+    "bonus": 0,
+    "code_prefix": "LB"
+  },
+  "notifications_global": [],
+  "adminRoles": [
+    {
+      "id": "super_admin",
+      "name": "Super Admin",
+      "permissions": [
+        "*"
+      ]
+    },
+    {
+      "id": "admin",
+      "name": "Admin",
+      "permissions": [
+        "users",
+        "deposits",
+        "withdrawals",
+        "matches",
+        "transactions"
+      ]
+    },
+    {
+      "id": "support",
+      "name": "Support",
+      "permissions": [
+        "support",
+        "users"
+      ]
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "A-17892131158035ii",
+      "action": "match_create",
+      "target": "M-17892131151319xl",
+      "detail": "Special Match~~~~99",
+      "created_at": "2026-09-12T11:38:35.803Z"
+    },
+    {
+      "id": "A-17891241661299te",
+      "action": "payment_method_delete",
+      "target": "PAY-test",
+      "detail": {},
+      "created_at": "2026-09-11T10:56:06.129Z"
+    },
+    {
+      "id": "A-1789124166121e2e",
+      "action": "payment_method_create",
+      "target": "PAY-test",
+      "detail": {
+        "id": "PAY-test",
+        "provider": "nagad",
+        "name": "Nagad Test",
+        "number": "01999999999",
+        "account_name": "",
+        "logo": "nagad.jpg",
+        "enabled": false,
+        "order": 99,
+        "min_deposit": 0,
+        "max_deposit": 1000000,
+        "instructions": ""
+      },
+      "created_at": "2026-09-11T10:56:06.121Z"
+    },
+    {
+      "id": "A-17891006263095g9",
+      "action": "match_create",
+      "target": "M-1789100626304wm4",
+      "detail": "Test Match",
+      "created_at": "2026-09-11T04:23:46.309Z"
+    }
+  ],
+  "system": {
+    "registration": true,
+    "deposit": true,
+    "withdraw": true,
+    "game_play": true,
+    "maintenance": false,
+    "user_login_otp": true
+  },
+  "helpLinks": [
+    {
+      "id": "faq",
+      "name": "FAQ",
+      "visible": true,
+      "order": 1
+    },
+    {
+      "id": "rules",
+      "name": "Rules",
+      "visible": true,
+      "order": 2
+    },
+    {
+      "id": "terms",
+      "name": "Terms",
+      "visible": true,
+      "order": 3
+    },
+    {
+      "id": "privacy",
+      "name": "Privacy",
+      "visible": true,
+      "order": 4
+    },
+    {
+      "id": "deposit_rules",
+      "name": "Deposit",
+      "visible": true,
+      "order": 5
+    },
+    {
+      "id": "withdrawal_rules",
+      "name": "Withdraw",
+      "visible": true,
+      "order": 6
+    },
+    {
+      "id": "refund_rules",
+      "name": "Refund",
+      "visible": true,
+      "order": 7
+    }
+  ],
+  "supportWidget": {
+    "enabled": true,
+    "image": "support-bot.png",
+    "whatsapp": "8801700000000",
+    "message": "Hello Ludo Baji Support",
+    "title": "Live Support 🔴"
+  },
+  "finance": {
+    "balance": 0.0,
+    "total_profit": 0.0,
+    "total_collected": 0.0,
+    "total_paid_prizes": 0.0,
+    "commission_balance": 0.0,
+    "total_commission_earned": 0.0,
+    "commission_log": [],
+    "log": []
+  }
+}

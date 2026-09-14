@@ -1,0 +1,26 @@
+Ludo Baji — Phase 3 User Management Update
+
+Completed only Phase 3: User Management.
+
+Admin Panel → User Management now includes:
+- All Users / Active Users / Blocked Users filtering
+- Search by User Code, Name, Phone or Email
+- User details/profile
+- Block / Unblock
+- Gaming Balance add/subtract
+- Winning Balance add/subtract
+- Balance adjustment transaction records
+- Transaction history
+- Match history
+- Deposit history
+- Withdrawal history
+- User notification sending
+- User notification history
+- User support history
+- Admin action audit entries for block/unblock, balance changes and user notifications
+
+Backend endpoints are protected by the Phase 1 admin authentication/permission system.
+Financial balance changes continue to use the Phase 2 atomic/serialized wallet-safe adjustment logic.
+
+No Phase 4+ features were added.
+Existing project files/features were preserved.

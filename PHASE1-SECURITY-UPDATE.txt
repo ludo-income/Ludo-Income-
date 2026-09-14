@@ -1,0 +1,32 @@
+Ludo Baji — Phase 1 Security Update
+
+Completed in this phase:
+1. Removed hard-coded admin username/password and admin secret fallbacks.
+2. Server now refuses to start when ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_SECRET, or USER_SECRET is missing/unsafe. ADMIN_SECRET and USER_SECRET must be different; secrets must be at least 32 characters.
+3. Added configurable ADMIN_ROLE with role/permission enforcement for /api/admin/* routes.
+4. Centralized authentication so all admin API endpoints are protected.
+5. Added expiring admin sessions with random token IDs (jti).
+6. Added server-side logout/revocation for the active admin token.
+7. Added admin login rate limiting (default 5 attempts per 15 minutes per source IP).
+8. Added timing-safe comparison for admin username/password.
+9. Separated USER_SECRET from ADMIN_SECRET.
+10. Added basic security response headers.
+11. Removed wildcard CORS behavior unless CORS_ORIGIN is explicitly configured.
+12. Added configurable JSON request size limit (default 10 MB).
+13. Admin login form no longer pre-fills a default username.
+
+Required production environment variables:
+ADMIN_USERNAME
+ADMIN_PASSWORD
+ADMIN_SECRET
+USER_SECRET
+ADMIN_ROLE (default: super_admin)
+
+Optional:
+ADMIN_TOKEN_TTL_MINUTES=480
+ADMIN_LOGIN_MAX_ATTEMPTS=5
+MAX_BODY_MB=10
+CORS_ORIGIN=
+TRUST_PROXY=false
+
+Important: OTP_DEV_MODE remains a testing-only option and should stay false in production.

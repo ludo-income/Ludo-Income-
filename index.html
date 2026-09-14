@@ -1,41 +1,451 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ludo Income</title>
-<style>
-body{font-family:Arial,sans-serif;margin:0;background:#f5f7fb;color:#172033}
-header{padding:18px 22px;background:#111827;color:#fff}
-main{max-width:1000px;margin:auto;padding:24px}
-.card{background:#fff;padding:20px;border-radius:14px;margin-bottom:16px;border:1px solid #e5e7eb}
-.notice{padding:12px;border-radius:10px;background:#ede9fe}
-.match{padding:14px 0;border-top:1px solid #eee}
-a{color:#6d28d9}
-</style>
-</head>
-<body>
-<header><h2 id="siteName">Ludo Income</h2><div id="tagline">Loading...</div></header>
-<main>
-<div id="maintenance" class="card" style="display:none"><b>Maintenance Mode</b><p>The site is temporarily unavailable.</p></div>
-<div id="notice" class="card notice"></div>
-<div class="card"><h3>Matches</h3><div id="matches">Loading...</div></div>
-<div class="card"><b>Support:</b> <span id="support"></span></div>
-</main>
-<script>
-async function load(){
- const r=await fetch('/api/site'); const d=await r.json(); const s=d.settings||{};
- document.title=s.siteName||'Ludo Income';
- document.getElementById('siteName').textContent=s.siteName||'Ludo Income';
- document.getElementById('tagline').textContent=s.tagline||'';
- document.getElementById('support').textContent=s.support||'';
- document.getElementById('notice').textContent=s.notice||'';
- document.getElementById('notice').style.display=s.showNotice?'block':'none';
- document.getElementById('maintenance').style.display=s.maintenance?'block':'none';
- document.documentElement.style.setProperty('--primary',s.primaryColor||'#6d28d9');
- const ms=d.matches||[];
- document.getElementById('matches').innerHTML=ms.length?ms.map(m=>`<div class="match"><b>${esc(m.name)}</b><br><small>${esc(m.time)} · ${esc(m.players)} · ${esc(m.status)}</small></div>`).join(''):'<span>No matches available.</span>';
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ludo Baji</title><style>html,body{background:#0a1628!important;}
+:root{--bg:#071323;--panel:#0c1d33;--panel2:#102742;--line:#1c4263;--text:#f4f8ff;--muted:#a9bdd2;--green:#13df8b;--blue:#1687ff;--purple:#6c35ff;--gold:#ffbf27}*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;overflow-x:hidden}body{background:radial-gradient(circle at 50% -10%,#12325a 0,#071323 38%,#050d18 100%);font-family:Arial,sans-serif;color:var(--text)}.app{width:100%;max-width:720px;min-height:100vh;margin:0 auto;padding-bottom:34px}header{background:linear-gradient(145deg,#061322,#0a1e35 65%,#092943);padding:22px 20px 20px;border-bottom:1px solid #183c5c;box-shadow:0 10px 35px #0005}.head{display:flex;align-items:center;gap:12px;justify-content:space-between}.brandWrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 0 2px}.logo{width:118px;height:118px;border-radius:22px;object-fit:contain;background:transparent;border:0;filter:drop-shadow(0 8px 18px #0008)}.name{display:none}.profile{width:46px;height:46px;border:1px solid #19dca0;border-radius:50%;background:linear-gradient(145deg,#10395a,#0bdc8a);font-size:22px;cursor:pointer;box-shadow:0 0 18px #0bdc8a33;flex-shrink:0}.headSpacer{width:46px;flex-shrink:0}.search{display:none!important}.wallet{padding:8px 18px 6px}.walletGrid{display:block}.balance{display:none}.balance.win{display:none}.balanceSingle{position:relative;overflow:hidden;background:linear-gradient(145deg,#0d2a22,#0f3d30);border:1px solid #1a5c45;border-radius:18px;padding:16px 18px;box-shadow:0 10px 28px #0004}.balanceSingle small{display:flex;align-items:center;gap:6px;color:#9ecfb8;font-weight:700;font-size:13px}.balanceSingle strong{display:block;margin-top:8px;font-size:32px;font-weight:800;color:#1fe89a;letter-spacing:.3px}.loginHint{font-size:12px;color:#8ea6bc;text-align:center;margin-top:10px}.homeExtras{padding:16px 18px 0}.homeBanner{display:block;background:#102a47;border:1px solid #1c4263;border-radius:18px;overflow:hidden;margin-bottom:10px}.homeBanner img{display:block;width:100%;max-height:180px;object-fit:cover}.homeBannerBody{padding:12px}.homeBannerBody b{display:block;font-size:16px}.homeNotice{background:#132b45;border:1px solid #1c4263;border-radius:16px;padding:13px;margin-bottom:10px}.homeNotice b{color:#45e6a3}.publicLinkGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:9px}.publicLinkGrid button{border:1px solid #285174;background:#0b2239;color:#fff;border-radius:10px;padding:9px;font-weight:700;cursor:pointer}.quick{padding:22px 18px 0}.quickHead{display:flex;align-items:end;justify-content:space-between;margin-bottom:15px}.quick h3{margin:0;font-size:25px;font-weight:800;letter-spacing:.1px}.quickSub{margin-top:4px;color:var(--muted);font-size:12px}.quickGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.quickBtn{min-height:118px;border:1px solid var(--line);background:linear-gradient(145deg,#102a47,#0a1d32);color:#fff;border-radius:18px;padding:14px 10px;text-align:left;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 9px 25px #0004;transition:transform .15s,border-color .15s,box-shadow .15s}.quickBtn:hover{border-color:#2675ad;box-shadow:0 12px 30px #0005}.quickBtn:active{transform:scale(.97)}.quickIcon{width:50px;height:50px;display:grid;place-items:center;margin-bottom:12px;border-radius:15px;background:linear-gradient(145deg,#12d990,#087eaa);font-size:27px;overflow:hidden;box-shadow:0 5px 16px #0004}.quickIcon img{width:100%;height:100%;object-fit:cover;border-radius:14px}.quickName{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.quickArrow{float:right;color:#91b7d7;font-size:20px;margin-top:-22px}.viewer{margin:22px 18px 0;padding:20px;border-radius:20px;background:linear-gradient(145deg,#0d243e,#09182b);border:1px solid #1b4160;color:#fff;display:none;box-shadow:0 10px 30px #0004}.viewer.show{display:block}.viewer h3{color:#45e6a3;font-size:22px;margin-top:0}.item{background:#102a47;padding:14px;border-radius:13px;margin-top:10px;display:flex;justify-content:space-between}.btn{border:0;border-radius:10px;background:#13c979;color:#fff;padding:11px 16px;font-weight:bold;cursor:pointer}.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:50}.modal.show{display:flex}.card{width:min(440px,100%);background:#fff;color:#202522;border-radius:22px;padding:22px;box-shadow:0 20px 70px #0008}.card h2{margin:0 0 8px}.muted{color:#68736d;font-size:14px}.field{margin:14px 0}.field label{display:block;font-weight:bold;margin-bottom:7px}.field input{width:100%;padding:13px;border:1px solid #cbd4ce;border-radius:10px;font-size:16px;outline:0}.row{display:flex;gap:10px}.row>*{flex:1}.close{float:right;border:0;background:#eee;border-radius:50%;width:34px;height:34px;font-size:20px;cursor:pointer}.err{min-height:22px;color:#c62828;margin-top:8px}.success{color:#087f3d}.profileBox{background:#f1f7f3;padding:14px;border-radius:14px;margin:14px 0}.hidden{display:none!important}.depositPanel{background:#fff;border-radius:18px;padding:16px;color:#202522;margin-top:14px}.paymentChoices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.payChoice{border:2px solid #d7ded9;background:#f7faf8;border-radius:13px;padding:13px;font-weight:bold;font-size:16px;cursor:pointer}.payChoice.active{border-color:#18ad59;background:#e8fff0}.payCards{display:block;width:100%;max-width:100%;margin:12px 0 14px;overflow:visible}.paymentGroup{display:block;width:100%;max-width:100%;margin:0 0 14px}.paymentGroup:last-child{margin-bottom:0}.paymentGroupTitle{font-weight:800;color:#263b31;margin:7px 0 8px;font-size:14px}.paymentGroupGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;width:100%;max-width:100%;min-width:0}.payCard{min-width:0;max-width:100%;overflow:hidden}.payType{font-size:11px;color:#68736d;margin-top:2px}.payCard{border:2px solid #d7ded9;background:#f7faf8;border-radius:14px;padding:10px;cursor:pointer}.payCard.active{border-color:#18ad59;background:#e8fff0}.payCardHead{display:flex;align-items:center;gap:8px;flex-direction:column;text-align:center}.payLogo{width:48px;height:48px;border-radius:10px;object-fit:cover;background:#fff;border:1px solid #e2e8e4}.payCardName{font-weight:800;font-size:14px;flex:1}.paySelected{display:flex;align-items:center;gap:9px;background:#f0f5f2;border-radius:12px;padding:12px;margin:2px 0 14px}.paySelected strong{flex:1;font-size:20px;letter-spacing:.6px}.paySelectedName{font-size:12px;color:#68736d;margin-bottom:2px}.payNumberRow{display:flex;align-items:center;gap:8px;margin-top:9px}.payNumber{font-size:18px;font-weight:800;letter-spacing:.5px;flex:1}.copyBtn{border:0;background:#18ad59;color:#fff;border-radius:9px;padding:9px 12px;font-weight:bold;min-width:72px}.copyBtn.copied{background:#087f3d}.depositPanel input[type=file]{padding:9px;background:#f7faf8}.depositHistory{margin-top:18px}.depRow{border:1px solid #dce4df;border-radius:12px;padding:11px;margin-top:9px;background:#fbfdfc}.depTop{display:flex;justify-content:space-between;gap:8px}.depStatus{font-size:12px;font-weight:bold;border-radius:20px;padding:5px 9px}.depStatus.pending{background:#fff3cd;color:#8a6200}.depStatus.approved{background:#d9f8e5;color:#087f3d}.depStatus.rejected{background:#ffe0e0;color:#a51d1d}.smallText{font-size:12px;color:#68736d;margin-top:5px}.preview{max-width:100%;max-height:180px;border-radius:10px;margin-top:8px;display:none}.withdrawPanel{background:#fff;border-radius:18px;padding:16px;color:#202522;margin-top:14px}.withdrawBalance{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.withdrawBalance button{border:2px solid #d7ded9;background:#f7faf8;border-radius:13px;padding:13px;font-weight:bold;cursor:pointer}.withdrawBalance button.active{border-color:#18ad59;background:#e8fff0}.withdrawHistory{margin-top:18px}.statementPanel{background:#fff;border-radius:18px;padding:14px;color:#202522;margin-top:14px}.statementFilters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.statementFilters button{border:2px solid #d7ded9;background:#f7faf8;border-radius:11px;padding:9px;font-weight:bold;cursor:pointer}.statementFilters button.active{border-color:#18ad59;background:#e8fff0}.txRow{border:1px solid #dce4df;border-radius:12px;padding:11px;margin-top:9px;background:#fbfdfc}.txTop{display:flex;justify-content:space-between;gap:8px}.txAmount.plus{color:#087f3d}.txAmount.minus{color:#b51f1f}.txAmount.zero{color:#68736d}.txMeta{font-size:12px;color:#68736d;margin-top:5px}.txBalance{font-size:12px;color:#303934;margin-top:7px;background:#f0f5f2;border-radius:9px;padding:7px}
+@media(max-width:500px){.app{max-width:430px}.name{font-size:23px}.quickGrid{gap:10px}.quickBtn{min-height:112px;padding:12px 9px}.quickIcon{width:46px;height:46px}.wallet{padding-left:16px;padding-right:16px}.quick{padding-left:16px;padding-right:16px}.viewer{margin-left:16px;margin-right:16px}}
+@media(max-width:350px){.quickGrid{grid-template-columns:repeat(2,1fr)}}
+/* Keep the existing mobile detection hook without forcing a fixed-width page. */
+.mobile-device body{width:100%;min-width:0!important;overflow-x:hidden}.mobile-device .app{width:100%!important;min-width:0!important;max-width:430px!important;margin:0 auto!important;transform:none!important}.mobile-device header,.mobile-device .wallet,.mobile-device .quick,.mobile-device .viewer{max-width:430px}.mobile-device .modal{width:100vw!important;min-width:0!important}.mobile-device .card{max-width:calc(100vw - 36px)!important}.mobile-device .quickGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+/* Maintenance mode */
+.maintenance-screen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:24px 16px;background:radial-gradient(circle at 50% 0%,#123d72 0,#061427 42%,#020812 100%);color:#fff}
+.maintenance-screen.show{display:flex}
+.maintenance-wrap{width:min(620px,100%);text-align:center}
+.maintenance-logo{width:112px;height:112px;border-radius:28px;object-fit:cover;box-shadow:0 0 35px #1687ff55;margin:4px auto 18px;display:block}
+.maintenance-art{font-size:64px;line-height:1;margin:8px 0 20px}
+.maintenance-card{background:linear-gradient(160deg,#081b35,#0a1225);border:1px solid #2467aa;border-radius:28px;padding:28px 20px;box-shadow:0 20px 80px #000a}
+.maintenance-card h1{font-size:30px;margin:0 0 10px}.maintenance-card h1 span{color:#16dfb0}
+.maintenance-card .main-msg{font-size:22px;font-weight:800;margin:8px 0 14px}.maintenance-card .detail{color:#b8cce5;line-height:1.7;font-size:15px}.maintenance-status{margin-top:20px;border:1px solid #1769e8;border-radius:18px;padding:16px;background:#071d3a;text-align:left}.maintenance-status b{display:block;font-size:18px;margin-bottom:5px}.maintenance-footer{margin-top:20px;color:#9db8d7;font-size:14px}
+body.maintenance-active .app{display:none!important}
+body.maintenance-active .modal{display:none!important}
+/* Pre-login landing: all user features stay hidden until authentication succeeds. */
+body.logged-out .wallet,body.logged-out .quick,body.logged-out .viewer{display:none!important}body.logged-out.preview-mode .wallet,body.logged-out.preview-mode .quick{display:block!important}body.logged-out.preview-mode .viewer{display:none!important}
+body.logged-out:not(.preview-mode) #authModal{display:flex!important}
+body.logged-out.preview-mode #authModal{display:none!important}
+body.preview-mode .quick,body.preview-mode .viewer{display:block!important}
+body.preview-mode .wallet{display:block!important}
+.preview-badge{display:none;margin:8px 0 0;padding:7px 10px;border:1px solid #315678;border-radius:8px;background:#0b2947;color:#9fc7ea;font-size:12px;text-align:center}
+body.preview-mode .preview-badge{display:block}
+body.logged-out .search{display:none}
+body.logged-out .profile{display:grid}
+.authModalPre{background:radial-gradient(circle at 50% 0%,#123d72 0,#061427 42%,#020812 100%);align-items:flex-start;overflow:auto;padding:26px 16px 40px}
+.authModalPre .card{width:min(500px,100%);margin:10px auto;background:linear-gradient(160deg,#081b35,#0a1225);color:#fff;border:1px solid #2467aa;border-radius:28px;padding:24px 20px;box-shadow:0 20px 80px #000a}
+.authHeroLogo{width:108px;height:108px;border-radius:28px;object-fit:cover;display:block;margin:4px auto 14px;box-shadow:0 0 35px #1687ff55}
+.authHeroTitle{text-align:center;font-size:29px;font-weight:900;margin:0}
+.authHeroTag{text-align:center;color:#a9c7e8;margin:7px 0 18px;font-size:14px}
+.authHeroArt{height:115px;border-radius:20px;margin:0 0 20px;background:linear-gradient(135deg,#09285b,#20206b,#0b624f);border:1px solid #2374c5;display:grid;place-items:center;font-size:64px;box-shadow:inset 0 0 45px #1687ff22}
+.authModalPre .card h2{text-align:center;font-size:25px;margin:0 0 7px}
+.authModalPre .muted{text-align:center;color:#a9bdd2}
+.authModalPre .field label{color:#eaf4ff}
+.authModalPre .field input{background:#071a31;color:#fff;border:1px solid #2c6598;border-radius:14px;padding:15px}
+.authModalPre .btn{border-radius:14px;padding:14px;background:linear-gradient(90deg,#12d985,#0aa8b5);font-size:16px}
+.authModalPre .close{display:none}
+.authModalPre .err{color:#ff8585}
+.authModalPre .success{color:#56efac}
+.previewModeBox{margin:12px 0;padding:13px 14px;border:1px solid #315678;border-radius:10px;background:#0a2542;color:#c9def3;line-height:1.55}.previewModeBox b{color:#fff}
+
+/* Requested UI update only: option -> full screen, preserving existing auth/admin behavior */
+body.screen-open{background:#f5f8f6;color:#202522}
+body.screen-open .app{max-width:430px;min-height:100vh;background:#f5f8f6;padding:0;box-shadow:0 0 35px #00000010}
+body.screen-open header,body.screen-open .wallet,body.screen-open .quick{display:none!important}
+body.screen-open .viewer,body.screen-open .viewer.show{display:block!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:#f5f8f6!important;color:#202522!important;box-shadow:none!important;min-height:100vh}
+.screenTop{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;padding:16px;background:#fff;border-bottom:1px solid #e2e8e4;box-shadow:0 2px 10px #00000008}
+.screenBack{width:40px;height:40px;border:1px solid #d9e1dc;background:#fff;border-radius:12px;font-size:22px;cursor:pointer;color:#202522}
+.screenTitle{font-size:20px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.screenBody{padding:16px}.screenIntro{color:#68736d;line-height:1.6;font-size:14px;margin:0 0 14px}
+.screenCard{background:#fff;border:1px solid #dfe7e2;border-radius:18px;padding:15px;box-shadow:0 6px 18px #00000008;margin-bottom:12px}
+.screenCardTitle{font-size:16px;font-weight:800;color:#202522;margin-bottom:4px}.screenCardSub{font-size:12px;color:#68736d}.screenArrow{color:#18ad59;font-size:24px}
+.depositMethodCard{display:flex;align-items:center;gap:12px;cursor:pointer;transition:.15s}.depositMethodCard:active{transform:scale(.985)}
+.depositMethodLogo{width:54px;height:54px;object-fit:cover;border-radius:13px;border:1px solid #e0e6e2;background:#fff}
+.detailHero{display:flex;align-items:center;gap:12px;margin-bottom:14px}.detailHero img{width:58px;height:58px;border-radius:14px;object-fit:cover;border:1px solid #e0e6e2}.detailHero b{font-size:18px}
+.numberBox{display:flex;align-items:center;gap:10px;background:#eef8f2;border:1px solid #d3eadc;border-radius:14px;padding:12px;margin:12px 0}.numberBox strong{font-size:21px;letter-spacing:.5px;flex:1;color:#202522}
+.sendMoneyNote{background:#effaf4;border-left:4px solid #18ad59;padding:12px;border-radius:10px;color:#31533f;line-height:1.55;margin:12px 0}
+.screenBody .field{margin:14px 0}.screenBody .field input{background:#fff;border:1px solid #d3ddd7;border-radius:12px;padding:13px}.uploadBox{border:1px dashed #a9b9b0;background:#f8fbf9;border-radius:14px;padding:18px;text-align:center;color:#68736d}
+.screenBody .btn{background:#18ad59;border-radius:12px;padding:13px 16px}
+
+/* Ludo Matches card UI */
+.lm-head{display:flex;align-items:center;gap:12px;margin:-2px 0 14px}.lm-head button{border:0;background:none;color:#fff;font-size:34px;line-height:1;cursor:pointer}.lm-head h3{margin:0!important;color:#fff!important;font-size:25px!important;flex:1}.lm-head span{background:#1ca9e8;color:#fff;border-radius:50%;width:40px;height:40px;display:grid;place-items:center}
+.lm-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.lm-tabs button{border:0;border-radius:10px;background:#c7c7c7;color:#111;padding:13px 8px;font-size:15px;font-weight:800;cursor:pointer}.lm-tabs button.active{background:#1e9bea;color:#fff}
+.ludo-match-list{display:flex;flex-direction:column;gap:16px}.ludo-match-card{background:#fff;color:#151515;border-radius:17px;padding:17px 16px 15px;box-shadow:0 8px 24px #0004}.lm-top{display:flex;gap:13px;align-items:flex-start}.lm-dice{font-size:66px;line-height:1;filter:drop-shadow(0 3px 2px #7775);flex:0 0 70px}.lm-info{min-width:0;flex:1}.lm-title{font-size:24px;font-weight:800;line-height:1.12;margin:1px 0 5px}.lm-time{font-size:16px;color:#555;margin-bottom:8px}.lm-tags{display:flex;gap:6px;flex-wrap:wrap}.lm-tags span{color:#fff;font-weight:800;font-size:14px;padding:3px 10px;border-radius:999px;background:#41ad50}.lm-tags span+span{background:#2596dc}.lm-note{display:inline-block;background:#e93333;color:#fff;font-weight:800;font-size:13px;border-radius:999px;padding:3px 10px;margin-top:6px}.lm-values{display:grid;grid-template-columns:1fr 1fr;text-align:center;margin:21px 0 12px}.lm-values small{display:block;letter-spacing:3px;color:#555;font-size:12px;margin-bottom:5px}.lm-values strong{display:block;font-size:38px;line-height:1}.lm-bottom{display:flex;align-items:flex-end;gap:7px}.lm-progress{flex:1;min-width:0}.lm-bar{height:7px;background:#ddd;overflow:hidden;margin-bottom:10px}.lm-bar i{display:block;height:100%;border-radius:0}.lm-count{display:flex;justify-content:space-between;font-size:15px}.lm-count b{font-weight:500;color:#999}.lm-join,.lm-closed{border:0;color:#fff;font-weight:800;font-size:15px;min-width:138px;height:54px;border-radius:13px;cursor:pointer}.lm-join{background:#2f9840}.lm-closed{background:#df2f31;cursor:not-allowed}.lm-room{margin-top:12px;padding:11px;border-radius:10px;background:#eaf6ff;display:flex;justify-content:space-between;align-items:center;gap:8px;color:#123}.lm-room button{border:0;background:#168fd4;color:#fff;border-radius:8px;padding:8px 11px;font-weight:800}.lm-result{margin-top:12px;padding:12px;border:1px dashed #bbb;border-radius:10px;background:#f8f8f8}.lm-result label{display:block;font-weight:800;margin-bottom:7px}.lm-result input{max-width:100%;font-size:13px}.lm-upload{display:block;border:0;background:#198fca;color:#fff;border-radius:9px;padding:9px 13px;font-weight:800;margin-top:9px}.lm-result small{display:block;margin-top:7px;color:#666}
+@media(max-width:520px){.viewer{margin:14px 10px 0;padding:10px}.lm-tabs{gap:8px}.lm-tabs button{padding:11px 5px}.ludo-match-card{padding:15px 12px}.lm-dice{font-size:57px;flex-basis:62px}.lm-title{font-size:22px}.lm-values strong{font-size:34px}.lm-join,.lm-closed{min-width:118px;height:50px}.lm-tags span{font-size:12px}.lm-note{font-size:11px}}
+
+/* New Home Design V2 */
+header{background:transparent;border-bottom:0;box-shadow:none;padding:14px 16px 6px}
+.quick{padding:10px 16px 20px}
+.quickHead h3{margin:0;font-size:18px;color:#e8fff6}
+.quickSub{color:#8eabbf;font-size:12px;margin-top:4px}
+.quickGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.quickBtn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:14px 12px;border-radius:16px;border:1px solid #1a4a3a;background:linear-gradient(145deg,#0d281f,#0a1f19);color:#e8fff6;cursor:pointer;box-shadow:0 6px 16px #0003}
+.quickBtn .quickIcon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#123d30;font-size:20px;flex-shrink:0;overflow:hidden}
+.quickBtn .quickIcon img{width:100%;height:100%;object-fit:cover}
+.quickBtn .quickName{flex:1;font-weight:700;font-size:14px}
+.quickBtn .quickArrow{color:#1fe89a;font-size:16px;font-weight:800}
+.promoStrip{margin:10px 18px 4px;padding:12px 14px;border-radius:16px;border:1px solid #1a5c45;background:linear-gradient(145deg,#0f3328,#0c241d);display:flex;align-items:center;gap:12px}
+.promoStrip .promoText{flex:1;font-size:13px;color:#c9e6d8;line-height:1.35}
+.promoStrip .promoBtn{border:0;background:#17c978;color:#042015;font-weight:800;border-radius:999px;padding:8px 12px;font-size:12px;white-space:nowrap;cursor:pointer}
+.homeExtras{padding:8px 16px 0}
+
+.footerHelp{padding:8px 16px 28px;margin-top:8px}
+.footerHelp .homeNotice{padding:10px;border-radius:14px;background:#0c1a28;border:1px solid #1a3348}
+.footerHelp .homeNotice b{font-size:13px;color:#7eb8a0}
+.footerHelp .publicLinkGrid{gap:6px;margin-top:8px}
+.footerHelp .publicLinkGrid button{padding:7px 6px;font-size:11px;font-weight:600;border-radius:8px;background:#0a1622;border:1px solid #1e3a50;color:#b8c9d9}
+.promoStrip{margin-top:4px}
+
+
+/* ===== FINAL HOME FIX v15 ===== */
+html,body{background:#071323!important;color:#f4f8ff!important}
+.app{max-width:430px!important;margin:0 auto!important;min-height:100vh!important;background:#071323!important;padding-bottom:28px!important}
+header{background:transparent!important;border:0!important;box-shadow:none!important;padding:14px 14px 6px!important}
+.head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
+.brandWrap{flex:1!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:10px!important}
+#mainLogo,.logo{width:64px!important;height:64px!important;border-radius:14px!important;object-fit:contain!important;background:transparent!important;border:0!important;flex-shrink:0!important}
+.name,#siteName{display:block!important;color:#fff!important;font-size:22px!important;font-weight:800!important;letter-spacing:.2px!important;line-height:1.1!important}
+.headSpacer,.profile{width:42px!important;height:42px!important;flex-shrink:0!important}
+.profile{border:1px solid #19dca0!important;border-radius:50%!important;background:linear-gradient(145deg,#10395a,#0bdc8a)!important;font-size:20px!important}
+.search{display:none!important}
+.wallet{padding:8px 14px!important;display:block!important}
+.balanceSingle{background:linear-gradient(145deg,#0d2a22,#0f3d30)!important;border:1px solid #1a5c45!important;border-radius:18px!important;padding:14px 16px!important}
+.balanceSingle .balTop{display:flex!important;align-items:center!important;gap:8px!important}
+.balanceSingle .walletLogo{font-size:22px!important;line-height:1!important}
+.balanceSingle small{color:#9ecfb8!important;font-weight:700!important;font-size:13px!important}
+.balanceSingle .balEye{margin-left:auto!important;opacity:.7!important}
+.balanceSingle strong{display:block!important;margin-top:8px!important;font-size:28px!important;font-weight:800!important;color:#1fe89a!important}
+.promoStrip{margin:8px 14px!important;padding:12px!important;border-radius:16px!important;border:1px solid #1a5c45!important;background:linear-gradient(145deg,#0f3328,#0c241d)!important;display:flex!important;flex-direction:column!important;gap:10px!important}
+.promoStrip .promoText{font-size:13px!important;color:#c9e6d8!important;line-height:1.4!important}
+.promoStrip .promoBtn{align-self:flex-start!important;border:0!important;background:#17c978!important;color:#042015!important;font-weight:800!important;border-radius:999px!important;padding:8px 14px!important;font-size:12px!important}
+.quick{padding:8px 14px 10px!important}
+.quickHead h3{font-size:17px!important;margin:0!important;color:#e8fff6!important}
+.quickSub{font-size:12px!important;color:#8eabbf!important;margin-top:3px!important}
+/* FORCE 2 columns - kill any 3-col */
+.quickGrid,.quick .quickGrid,#quickGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+.quickBtn,.quickGrid .quickBtn,#quickGrid .quickBtn{
+  min-height:72px!important;height:auto!important;max-width:100%!important;
+  display:flex!important;align-items:center!important;gap:10px!important;
+  padding:12px 10px!important;border-radius:16px!important;
+  border:1px solid #1a4a3a!important;
+  background:linear-gradient(145deg,#0d281f,#0a1f19)!important;
+  color:#e8fff6!important;text-align:left!important;
+  box-sizing:border-box!important;overflow:hidden!important;
 }
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+.quickBtn .quickIcon{width:38px!important;height:38px!important;min-width:38px!important;border-radius:11px!important;display:grid!important;place-items:center!important;background:#123d30!important;font-size:18px!important;overflow:hidden!important;flex-shrink:0!important}
+.quickBtn .quickIcon img{width:100%!important;height:100%!important;object-fit:cover!important}
+.quickBtn .quickName{flex:1!important;min-width:0!important;font-size:13px!important;font-weight:700!important;white-space:normal!important;line-height:1.25!important;word-break:break-word!important}
+.quickBtn .quickArrow{color:#1fe89a!important;flex-shrink:0!important;font-weight:800!important}
+.footerHelp{padding:6px 14px 24px!important}
+.footerHelp .homeNotice{padding:10px!important;border-radius:14px!important;background:#0c1a28!important;border:1px solid #1a3348!important}
+.footerHelp .homeNotice b{font-size:13px!important;color:#7eb8a0!important}
+.footerHelp .publicLinkGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;margin-top:8px!important}
+.footerHelp .publicLinkGrid button{padding:8px 6px!important;font-size:11px!important;font-weight:600!important;border-radius:8px!important;background:#0a1622!important;border:1px solid #1e3a50!important;color:#b8c9d9!important}
+
+/* Full screen option pages */
+body.screen-open{background:#f5f8f6!important;color:#202522!important}
+body.screen-open .app{background:#f5f8f6!important;padding:0!important}
+body.screen-open header,body.screen-open .wallet,body.screen-open .promoStrip,body.screen-open .homeExtras,body.screen-open .quick,body.screen-open .footerHelp,body.screen-open .loginHint{display:none!important}
+.viewer{display:none!important}
+.viewer.show,body.screen-open .viewer,body.screen-open .viewer.show{
+  display:block!important;position:fixed!important;left:50%!important;transform:translateX(-50%)!important;
+  top:0!important;bottom:0!important;width:100%!important;max-width:430px!important;
+  margin:0!important;padding:0!important;border:0!important;border-radius:0!important;
+  background:#f5f8f6!important;color:#202522!important;z-index:5000!important;overflow-y:auto!important;min-height:100vh!important;
+}
+body.logged-out.preview-mode .wallet,body.logged-out.preview-mode .quick,body.logged-out.preview-mode .promoStrip,body.logged-out.preview-mode .footerHelp{display:block!important}
+body.preview-mode .wallet,body.preview-mode .quick{display:block!important}
+.lm-head,.screenTop{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:10px;padding:12px 14px;background:#0b1e33;color:#fff}
+.lm-head button,.screenBack{border:0;background:#14324f;color:#fff;width:40px;height:40px;border-radius:12px;font-size:22px;cursor:pointer}
+.lm-head h3,.screenTitle{flex:1;margin:0;font-size:18px;font-weight:800;color:#fff}
+.screenBody{padding:14px}
+
+
+#supportFloat{position:fixed;right:14px;bottom:22px;z-index:4000;width:92px;height:92px;border:0;background:transparent;padding:0;cursor:pointer;animation:sfBob 2.4s ease-in-out infinite;filter:drop-shadow(0 10px 18px #000a)}
+#supportFloat img{width:92px;height:92px;object-fit:contain;display:block;pointer-events:none}
+#supportFloat.hidden{display:none!important}
+@keyframes sfBob{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-14px) rotate(5deg)}}
+body.screen-open #supportFloat{display:none!important}
+
+
+#supportFloat{position:fixed;right:10px;bottom:18px;z-index:4000;width:110px;border:0;background:transparent;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;animation:sfBob 2.2s ease-in-out infinite;filter:drop-shadow(0 12px 20px #000a)}
+#supportFloat img{width:100px;height:100px;object-fit:contain;display:block;pointer-events:none}
+#supportFloat .sfLabel{font-size:11px;font-weight:800;color:#fff;background:#e11d48;border-radius:999px;padding:3px 8px;white-space:nowrap;box-shadow:0 4px 12px #e11d4844}
+#supportFloat.hidden{display:none!important}
+@keyframes sfBob{0%,100%{transform:translate(0,0) rotate(-6deg)}25%{transform:translate(-6px,-10px) rotate(2deg)}50%{transform:translate(4px,-16px) rotate(6deg)}75%{transform:translate(6px,-8px) rotate(-2deg)}}
+body.screen-open #supportFloat{display:none!important}
+
+/* ===== App Splash (Ludo Best style) ===== */
+#appSplash{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 35%,#12325a 0%,#0a1628 45%,#050d18 100%);transition:opacity .35s ease,visibility .35s ease}
+#appSplash.hide{opacity:0;visibility:hidden;pointer-events:none}
+#appSplash .sp-inner{text-align:center;padding:20px}
+#appSplash .sp-logo{width:128px;height:128px;border-radius:28px;object-fit:contain;background:transparent;box-shadow:0 0 40px #1687ff55,0 12px 40px #000a;margin:0 auto 22px;display:block}
+#appSplash .sp-name{font-size:28px;font-weight:800;color:#fff;letter-spacing:.3px;margin:0 0 6px}
+#appSplash .sp-tag{font-size:14px;color:#8ea6bc;margin:0 0 28px}
+#appSplash .sp-spin{width:36px;height:36px;margin:0 auto 14px;border:3px solid #1c4263;border-top-color:#1fe89a;border-radius:50%;animation:spSpin .8s linear infinite}
+#appSplash .sp-msg{font-size:13px;color:#7a93a8}
+#appSplash.skip{display:none!important;opacity:0;visibility:hidden;pointer-events:none}
+@keyframes spSpin{to{transform:rotate(360deg)}}
+/* Download App button */
+#dlAppBtn{position:fixed;left:12px;bottom:18px;z-index:3500;display:none;align-items:center;gap:8px;border:0;padding:11px 14px;border-radius:999px;background:linear-gradient(145deg,#1687ff,#0d5ec4);color:#fff;font-weight:800;font-size:13px;box-shadow:0 8px 24px #1687ff66;cursor:pointer}
+#dlAppBtn.show{display:flex}
+#dlAppBtn .dl-ico{font-size:16px}
+body.screen-open #dlAppBtn{display:none!important}
+</style><script>(function(){
+  var mobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (window.matchMedia && window.matchMedia("(pointer:coarse)").matches) || (screen && screen.width <= 600);
+  if(mobileDevice){ document.documentElement.classList.add("mobile-device"); }
+})();</script>
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0a1628">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ludo Baji">
+<link rel="apple-touch-icon" href="/icon-512.png">
+</head><body class="logged-out"><div id="appSplash"><div class="sp-inner"><img class="sp-logo" src="icon-512.png" alt="Ludo Baji"><div class="sp-name">Ludo Baji</div><div class="sp-tag">Play • Win • Earn</div><div class="sp-spin"></div><div class="sp-msg">Connecting to server...</div></div></div><button type="button" id="dlAppBtn" aria-label="Download App"><span class="dl-ico">⬇</span><span>Download App</span></button><div class="maintenance-screen" id="maintenanceScreen"><div class="maintenance-wrap"><img class="maintenance-logo" id="maintenanceLogo" src="logo-ludo-baji.jpg" alt="Ludo Baji"><div class="maintenance-art" aria-hidden="true">👷 🛠️ 🚧</div><div class="maintenance-card"><h1 id="maintenanceTitle">Ludo Baji <span>Update</span></h1><div class="main-msg" id="maintenanceMessage">Website & App Update চলছে</div><div class="detail" id="maintenanceDetail">এখন প্রবেশ করতে পারবেন না। আমরা সিস্টেম আপডেট করছি। কিছু সময়ের জন্য সেবা বন্ধ থাকবে।</div><div class="maintenance-status"><b id="maintenanceStatus">আপডেটের কাজ চলমান...</b><span id="maintenanceSubtext">We’ll be back soon with more exciting features!</span></div><div class="maintenance-footer" id="maintenanceFooter">ধন্যবাদ, সাথে থাকার জন্য!<br>— Ludo Baji Team —</div></div></div></div><div class="app"><header><div class="head"><div class="headSpacer"></div><div class="brandWrap"><img class="logo" id="mainLogo" src="logo-ludo-baji.jpg" alt="Ludo Baji"><div class="name" id="siteName">Ludo Baji</div></div><button class="profile" id="profileBtn" aria-label="Profile">👤</button></div></header><div class="wallet"><div class="balanceSingle"><div class="balTop"><span class="walletLogo" aria-hidden="true">👛</span><small>Balance</small><span class="balEye">👁</span></div><strong id="totalBalance">৳ 0.00</strong></div><div class="loginHint" id="walletHint">Login করলে আপনার Balance এখানে দেখা যাবে</div></div><div class="promoStrip" id="promoStrip"><div class="promoText">🎁 স্বাগতম লুডো বাজিতে — ডিপোজিট করুন এবং বোনাস উপভোগ করুন।</div><button type="button" class="promoBtn" onclick="if(typeof openDeposit==='function')openDeposit();else if(typeof quickOpen==='function')quickOpen('deposit','Deposit','💳')">এখনই জয়েন করুন ›</button></div><div id="homeExtras" class="homeExtras"></div><div class="quick"><div class="quickHead"><div><h3>Quick Access</h3><div class="quickSub">আপনার প্রয়োজনীয় সব Option এক জায়গায়</div><div class="preview-badge">🔎 Preview Mode — Login OFF</div></div></div><div class="quickGrid" id="quickGrid"></div></div><div id="footerHelp" class="footerHelp"></div><div class="viewer" id="view"></div><button type="button" id="supportFloat" class="hidden" aria-label="Live Support"><span class="sfLabel">Live Support 🔴</span><img src="support-bot.png" alt="Live Support"></button></div>
+<div class="modal authModalPre" id="authModal"><div class="card"><img class="authHeroLogo" src="logo-ludo-baji.jpg" alt="Ludo Baji"><div class="authHeroTitle">Ludo Baji</div><div class="authHeroTag">Play • Win • Earn</div><div class="authHeroArt">🎲 🏆 🎯</div><button class="close" id="closeAuth">×</button><h2 id="authTitle">Login / Sign Up</h2><p class="muted">Email / Gmail দিয়ে ৬ সংখ্যার OTP-এর মাধ্যমে প্রবেশ করুন</p><div id="emailStep"><div class="field"><label>Email / Gmail</label><input id="email" type="email" autocomplete="email" placeholder="example@gmail.com" maxlength="254"></div><button class="btn" id="sendOtp" style="width:100%">Continue with Email</button></div><div id="otpStep" class="hidden"><div class="field"><label>৬ সংখ্যার OTP</label><input id="otp" inputmode="numeric" maxlength="6" placeholder="123456" autocomplete="one-time-code"></div><button class="btn" id="verifyOtp" style="width:100%">Verify & Login</button><div class="row" style="margin-top:10px"><button class="btn" id="backEmail" style="background:#68736d">Email বদলান</button><button class="btn" id="resendOtp">আবার OTP</button></div></div><div id="authErr" class="err"></div></div></div>
+<div class="modal" id="profileModal"><div class="card"><button class="close" id="closeProfile">×</button><h2>👤 Profile</h2><div id="profileContent"></div><div class="field"><label>নাম</label><input id="profileName" maxlength="60" placeholder="আপনার নাম"></div><button class="btn" id="saveProfile" style="width:100%">Save Profile</button><button class="btn" id="logoutUser" style="width:100%;margin-top:10px;background:#d84a4a">Logout</button><div id="profileErr" class="err"></div></div></div>
+<script>
+let selectedId=null,all=[],currentUser=null,pendingEmail='',pendingAction='',loginOtpEnabled=true;
+const quickItems=[];const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const authModal=document.getElementById('authModal'),profileModal=document.getElementById('profileModal');
+function authToken(){return localStorage.getItem('ludo_user_token')||''}
+async function api(path,opt={}){const headers={'Content-Type':'application/json',...(opt.headers||{})};if(authToken())headers.Authorization='Bearer '+authToken();const r=await fetch(path,{...opt,headers});const j=await r.json().catch(()=>({error:'Server error'}));if(!r.ok)throw new Error(j.error||'Request failed');return j}
+(function(){
+  var s=document.getElementById('appSplash');
+  if(!s)return;
+  var nav=performance.getEntriesByType&&performance.getEntriesByType('navigation')[0];
+  var isReload=(nav&&nav.type==='reload')||(performance.navigation&&performance.navigation.type===1);
+  var seen=false;try{seen=sessionStorage.getItem('lb_splash_seen')==='1'}catch(e){}
+  // Refresh / already opened this session: no splash at all
+  if(isReload||seen){
+    s.classList.add('skip');
+    try{s.parentNode&&s.parentNode.removeChild(s)}catch(e){}
+    window._splashSkip=true;
+  }
+  try{sessionStorage.setItem('lb_splash_seen','1')}catch(e){}
+})();
+window._splashShownAt=Date.now();
+function hideAppSplash(){
+  const s=document.getElementById('appSplash');
+  if(!s||window._splashSkip)return;
+  // First open: full splash (logo+name+spin+connecting) then hide
+  const wait=Math.max(0,1200-(Date.now()-(window._splashShownAt||Date.now())));
+  setTimeout(function(){
+    s.classList.add('hide');
+    setTimeout(function(){if(s&&s.parentNode)try{s.parentNode.removeChild(s)}catch(e){}},400);
+  },wait);
+}
+window._deferredInstallPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window._deferredInstallPrompt=e;const btn=document.getElementById('dlAppBtn');if(btn&&!window.matchMedia('(display-mode: standalone)').matches&&!navigator.standalone)btn.classList.add('show')});
+window.addEventListener('appinstalled',function(){window._deferredInstallPrompt=null;const btn=document.getElementById('dlAppBtn');if(btn)btn.classList.remove('show')});
+(function(){const btn=document.getElementById('dlAppBtn');if(!btn)return;if(window.matchMedia('(display-mode: standalone)').matches||navigator.standalone){btn.classList.remove('show');return}btn.onclick=async function(){if(window._deferredInstallPrompt){window._deferredInstallPrompt.prompt();try{await window._deferredInstallPrompt.userChoice}catch(e){}window._deferredInstallPrompt=null;btn.classList.remove('show');return}alert('অ্যাপ Install করতে Chrome মেনু (⋮) থেকে “Install app” বা “Add to Home screen” চাপুন।')}})();
+async function load(){
+  try{
+    const r=await fetch('/api/site?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw new Error('Site configuration unavailable');
+    const d=await r.json();
+    document.title=d.site?.name||'Ludo Baji';
+    const sn=document.getElementById('siteName')||document.querySelector('.name');if(sn)sn.textContent=d.site?.name||'Ludo Baji';
+    const ml=document.querySelector('#mainLogo');if(ml)ml.src=d.site?.logo||'logo-ludo-baji.jpg';
+    const spLogo=document.querySelector('#appSplash .sp-logo');if(spLogo&&d.site?.logo)spLogo.src=d.site.logo;
+    const spName=document.querySelector('#appSplash .sp-name');if(spName)spName.textContent=d.site?.name||'Ludo Baji';
+        loginOtpEnabled=d.system?.user_login_otp!==false;
+    const maintenance=d.system?.maintenance||{};
+    if(maintenance.enabled===true){showMaintenance(maintenance,d.site);return}
+    hideMaintenance();
+    const logged=!!authToken();
+    document.body.classList.toggle('logged-out',!logged);
+    document.body.classList.toggle('preview-mode',!logged&&!loginOtpEnabled);
+    document.getElementById('profileBtn').style.display=(loginOtpEnabled||logged)?'':'none';
+    all=(d.mainOptions||[]).filter(x=>x.visible);
+    renderQuick();
+    window._helpLinks=Array.isArray(d.helpLinks)?d.helpLinks:null;window._supportWidget=d.supportWidget||null;renderHomeExtras(d);renderPublicLinks();setupSupportFloat(d);
+    await refreshDashboard();
+    if(!logged&&loginOtpEnabled){
+      if(!authModal.classList.contains('show')) openAuth();
+      return;
+    }
+    if(logged||!loginOtpEnabled) await restorePageState();
+  }catch(e){
+    console.error('Ludo Baji bootstrap error:',e);
+    const logged=!!authToken();
+    if(!logged){
+      document.body.classList.add('logged-out');
+      document.body.classList.remove('preview-mode');
+      document.getElementById('profileBtn').style.display='';
+      authModal.classList.add('show');
+      document.getElementById('authErr').textContent='Server connection পাওয়া যাচ্ছে না। আবার চেষ্টা করুন।';
+    }
+  }finally{
+    hideAppSplash();
+  }
+}
+
+function renderHomeExtras(d){const box=document.getElementById('homeExtras');if(!box)return;let html='';const banners=(d.banners||[]).filter(x=>x.enabled!==false).sort((a,b)=>Number(a.order||999)-Number(b.order||999)).slice(0,3);for(const b of banners){html+='<div class="homeBanner"'+(b.link?' onclick="location.href=\''+esc(b.link)+'\'" style="cursor:pointer"':'')+'>'+(b.image?'<img src="'+esc(b.image)+'" alt="">':'')+'<div class="homeBannerBody"><b>'+esc(b.title||'')+'</b></div></div>'}const notices=(d.notifications_global||[]).slice(0,2);if(notices.length){html+='<div class="homeNotice"><b>📢 Notice</b>'+notices.map(n=>'<div style="margin-top:6px"><strong>'+esc(n.title||'Notice')+'</strong><div class="smallText" style="color:#c7d8e9">'+esc(n.message||'')+'</div></div>').join('')+'</div>'}box.innerHTML=html}
+
+function setupSupportFloat(d){const btn=document.getElementById('supportFloat');if(!btn)return;const w=(d&&d.supportWidget)||window._supportWidget||{};const logged=!!(typeof authToken==='function'&&authToken());if(w.enabled===false||!logged){btn.classList.add('hidden');return}btn.classList.remove('hidden');const img=btn.querySelector('img');if(img&&w.image)img.src=w.image;const lb=btn.querySelector('.sfLabel');if(lb)lb.textContent=w.title||'Live Support 🔴';btn.onclick=function(){const phone=String(w.whatsapp||'').replace(/[^0-9]/g,'');if(!phone){alert('WhatsApp number সেট করা নেই');return}const text=encodeURIComponent(w.message||'Hello');window.open('https://wa.me/'+phone+'?text='+text,'_blank')}}
+
+function renderPublicLinks(){const box=document.getElementById('footerHelp')||document.getElementById('homeExtras');if(!box)return;let f=document.getElementById('publicLinks');if(f&&f.parentNode!==box){try{f.parentNode.removeChild(f)}catch{}}if(!f){f=document.createElement('div');f.id='publicLinks';f.className='homeNotice'}box.appendChild(f);const defaults=[{id:'faq',name:'FAQ'},{id:'rules',name:'Rules'},{id:'terms',name:'Terms'},{id:'privacy',name:'Privacy'},{id:'deposit_rules',name:'Deposit'},{id:'withdrawal_rules',name:'Withdraw'},{id:'refund_rules',name:'Refund'}];let links=Array.isArray(window._helpLinks)&&window._helpLinks.length?window._helpLinks:defaults;links=links.filter(x=>x&&x.visible!==false).slice().sort((a,b)=>Number(a.order||99)-Number(b.order||99));if(!links.length){f.style.display='none';f.innerHTML='';return}f.style.display='';f.innerHTML='<b>ℹ️ Help</b><div class="publicLinkGrid">'+links.map(x=>'<button onclick="showPublicPage(\''+esc(x.id)+'\')">'+esc(x.name||x.id)+'</button>').join('')+'</div>'}
+function showMaintenance(m,site){document.body.classList.add('maintenance-active');const screen=document.getElementById('maintenanceScreen');if(!screen)return;screen.classList.add('show');const logo=m.logo||site?.logo||'7543.jpg';document.getElementById('maintenanceLogo').src=logo;document.getElementById('maintenanceTitle').textContent=m.title||((site?.name||'Ludo Baji')+' Update');document.getElementById('maintenanceMessage').textContent=m.message||'Website & App Update চলছে';document.getElementById('maintenanceDetail').textContent=m.detail||'এখন প্রবেশ করতে পারবেন না। আমরা সিস্টেম আপডেট করছি। কিছু সময়ের জন্য সেবা বন্ধ থাকবে।';document.getElementById('maintenanceStatus').textContent=m.status||'আপডেটের কাজ চলমান...';document.getElementById('maintenanceSubtext').textContent=m.subtext||'We’ll be back soon with more exciting features!';document.getElementById('maintenanceFooter').innerHTML=esc(m.footer||'ধন্যবাদ, সাথে থাকার জন্য!<br>— Ludo Baji Team —').replace(/&lt;br&gt;/g,'<br>')}
+function hideMaintenance(){document.body.classList.remove('maintenance-active');document.getElementById('maintenanceScreen')?.classList.remove('show')}
+
+function optionFor(id){return all.find(x=>x.id===id)||null}
+function renderQuick(){const q=document.getElementById('quickGrid');q.innerHTML='';if(!authToken()&&!(!loginOtpEnabled))return;const list=all.slice().sort((a,b)=>Number(a.order||999)-Number(b.order||999));if(!list.length){q.innerHTML='<div style="grid-column:1/-1;text-align:center;color:#9db1c6;padding:30px 10px">Admin Panel থেকে কোনো Option ON করা হয়নি।</div>';return}list.forEach((cfg)=>{const b=document.createElement('button');b.className='quickBtn';b.style.background=cfg.background||'';b.style.color=cfg.text_color||'';b.style.borderRadius=Math.max(0,Math.min(60,Number(cfg.border_radius||18)))+'px';const fallback=cfg.icon||'📌';const label=cfg.button_text||cfg.name||'Option';b.innerHTML='<span class="quickIcon" style="border-radius:'+Math.max(0,Math.min(60,Number(cfg.border_radius||15)))+'px">'+(cfg.logo?'<img src="'+esc(cfg.logo)+'" alt="">':esc(fallback))+'</span><span class="quickName">'+esc(label)+'</span><span class="quickArrow">›</span>';b.onclick=()=>quickOpen(cfg.id,cfg.name||'Option',fallback);q.appendChild(b)})}
+function pageState(){return decodeURIComponent(location.hash.replace(/^#/,'')||'home')}
+function setPageState(id, forceReplace){const key=id||'home';const target=key==='home'?'':('#'+encodeURIComponent(key));if(location.hash===target&&!forceReplace)return;const url=target||(location.pathname+location.search);if(forceReplace||key==='home'){history.replaceState({app:1,screen:key},'',url)}else{history.pushState({app:1,screen:key},'',url)}}
+function isScreenOpen(){return document.body.classList.contains('screen-open')}
+function forceCloseAllScreens(){try{clearInterval(window._ludoUserTimer)}catch(e){}document.body.classList.remove('screen-open');const v=document.getElementById('view');if(v){v.classList.remove('show');v.innerHTML=''}selectedId=null;window.scrollTo(0,0);try{renderQuick()}catch(e){}try{if(typeof refreshDashboard==='function')refreshDashboard()}catch(e){}}
+async function restorePageState(){const state=pageState();if((!authToken()&&!(!loginOtpEnabled))||state==='home'||state==='')return;if(state==='profile'){loadProfile();return}if(state==='deposit'){openDeposit();return}if(state.indexOf('deposit-')===0){await openDeposit();openPaymentDetail(state.slice(8));return}if(state==='withdraw'){openWithdraw();return}if(state==='statement'){openStatement();return}if(state==='match'||state==='matches'){if(typeof showMatches==='function')showMatches();return}if(state==='mymatch'||state==='my-matches'){if(typeof showMyMatches==='function')showMyMatches();return}const found=optionFor(state);if(found){show(found);}}
+function enterScreen(id){selectedId=id;setPageState(id);document.body.classList.add('screen-open');const v=document.getElementById('view');v.classList.add('show');window.scrollTo(0,0)}
+function closeScreen(fromPop){forceCloseAllScreens();if(!fromPop)setPageState('home',true)}
+function screenBack(){forceCloseAllScreens();setPageState('home',true)}
+function safeHttpUrl(v){try{const u=new URL(String(v||''),location.href);return ['http:','https:'].includes(u.protocol)?u.href:''}catch{return ''}}
+function quickOpen(id,name,icon){if(id==='deposit'){openDeposit();return}if(id==='withdraw'){openWithdraw();return}if(id==='statement'){openStatement();return}const found=optionFor(id);if(found){if(found.action==='url'&&safeHttpUrl(found.url)){location.href=safeHttpUrl(found.url);return}show(found,null);return}enterScreen(id);const v=document.getElementById('view');v.innerHTML='<div class="screenTop"><button class="screenBack" onclick="screenBack()">‹</button><div class="screenTitle">'+esc(name)+'</div></div><div class="screenBody"><div class="screenCard"><div class="screenCardTitle">'+esc(name)+'</div><div class="screenCardSub">এই Section-এর content Admin Panel থেকে নিয়ন্ত্রিত হবে।</div></div></div>'}
+/* Phone Back: কোনো স্ক্রিন খোলা থাকলে শুধু স্ক্রিন বন্ধ হবে, অ্যাপ থেকে বের হবে না */
+window.addEventListener('popstate',function(){
+  if(isScreenOpen()){
+    forceCloseAllScreens();
+    history.pushState({app:1,screen:'home'},'',location.pathname+location.search);
+    return;
+  }
+});
+/* App লঞ্চে history trap */
+(function(){try{if(!history.state||!history.state.app){history.replaceState({app:1,screen:'home'},'',location.pathname+location.search+(location.hash||''))}}catch(e){}})();
+async function refreshDashboard(){const tb=document.getElementById('totalBalance');const wh=document.getElementById('walletHint');if(!authToken()){if(tb)tb.textContent='৳ 0.00';if(wh)wh.textContent='Login করলে আপনার Balance এখানে দেখা যাবে';return}try{const j=await api('/api/user/dashboard');currentUser=j.user;const total=Number(j.dashboard.gaming_balance||0)+Number(j.dashboard.winning_balance||0);if(tb)tb.textContent='৳ '+total.toFixed(2);if(wh)wh.textContent='User ID: '+(j.user.user_code||'');window._gamingBal=Number(j.dashboard.gaming_balance||0);window._winningBal=Number(j.dashboard.winning_balance||0)}catch(e){localStorage.removeItem('ludo_user_token');currentUser=null;if(wh)wh.textContent='Login করলে আপনার Balance এখানে দেখা যাবে'}}
+function render(){renderQuick()}
+function show(s,b){if(s.id==='deposit'){openDeposit();return}if(s.id==='withdraw'){openWithdraw();return}enterScreen(s.id);const v=document.getElementById('view');const visual=s.logo?'<img src="'+esc(s.logo)+'" style="width:42px;height:42px;object-fit:cover;border-radius:11px" alt="">':esc(s.icon||'📌');const bg=s.background||'',tc=s.text_color||'',br=Math.max(0,Math.min(60,Number(s.border_radius||12)));const btn=s.button_text||'Continue';v.innerHTML='<div class="screenTop"><button class="screenBack" onclick="screenBack()">‹</button><div class="screenTitle">'+visual+' '+esc(s.name||'Option')+'</div></div><div class="screenBody"><p class="screenIntro">'+esc(s.content||'')+'</p><div class="screenCard" style="'+(bg?'background:'+esc(bg)+';':'')+(tc?'color:'+esc(tc)+';':'')+'border-radius:'+br+'px">'+esc(s.content||'System content')+(s.action==='url'&&s.url?'<button class="btn" style="margin-top:12px" onclick="location.href=\''+esc(s.url)+'\'">'+esc(btn)+'</button>':'')+'</div></div>'}
+function openAuth(action=''){pendingAction=action||'';const logged=!!authToken();document.body.classList.toggle('logged-out',!logged);if(!loginOtpEnabled&&!logged){close(authModal);document.body.classList.add('preview-mode');if(pendingAction==='deposit')openDeposit();else if(pendingAction==='withdraw')openWithdraw();else if(pendingAction==='statement')openStatement();return;}authModal.classList.add('show');document.getElementById('emailStep').classList.remove('hidden');document.getElementById('otpStep').classList.add('hidden');document.getElementById('authErr').textContent='';if(logged){if(pendingAction==='deposit')openDeposit();else if(pendingAction==='withdraw')openWithdraw();else loadProfile();}}
+function close(m){m.classList.remove('show')}
+
+let depositMethod='bkash',depositInfo=[];
+async function openDeposit(){
+  setPageState('deposit');const preview=!authToken()&&!loginOtpEnabled;if(!authToken()&&!preview){openAuth('deposit');return}
+  enterScreen('deposit');const v=document.getElementById('view');
+  v.innerHTML='<div class="screenTop"><button class="screenBack" onclick="screenBack()">‹</button><div class="screenTitle">💳 Deposit</div></div><div class="screenBody"><p class="screenIntro">যে Payment Method-এ টাকা পাঠাতে চান সেটি নির্বাচন করুন। পরের Screen-এ সেই Payment-এর সম্পূর্ণ তথ্য দেখা যাবে এবং Login করা থাকলে Deposit Submit করা যাবে।</p>'+(preview?'<div class="previewModeBox">🔎 <b>Preview Mode</b><br>Login/Registration OFF থাকায় Main Page ও Payment details দেখা যাবে। Submit করার জন্য Login/Registration ON করতে হবে।</div>':'')+'<div class="screenCard"><div class="screenCardTitle">Payment Method</div><div id="depositPaymentCards">Loading...</div></div></div>';
+  try{depositInfo=(await api('/api/deposit/info')).methods||[];renderDepositMethods()}catch(e){const box=document.getElementById('depositPaymentCards');if(box)box.innerHTML='<div class="err">'+esc(e.message)+'</div>'}
+}
+function openPaymentDetail(method){
+  const info=(depositInfo||[]).find(x=>x.id===method);if(!info)return;depositMethod=method;setPageState('deposit-'+method);document.body.classList.add('screen-open');const v=document.getElementById('view');v.classList.add('show');const preview=!authToken()&&!loginOtpEnabled;
+  const logo=info.logo||'7543.jpg';const instruction=info.instructions||'আপনি নাম্বারটি Copy করে Send Money করবেন।';
+  v.innerHTML='<div class="screenTop"><button class="screenBack" onclick="openDeposit()">‹</button><div class="screenTitle">'+esc(info.name||info.provider||'Payment')+'</div></div><div class="screenBody"><div class="screenCard"><div class="detailHero"><img src="'+esc(logo)+'" alt=""><div><b>'+esc(info.name||'Payment')+'</b><div class="backHint">'+esc(info.account_type||'Personal')+'</div></div></div><div class="numberBox"><strong>'+esc(info.number||'-')+'</strong><button class="copyBtn" id="copy-'+esc(info.id)+'" onclick="copyPayNumber(\''+esc(info.id)+'\')">Copy</button></div><div class="sendMoneyNote">'+esc(instruction)+'</div></div><div class="screenCard">'+(preview?'<div class="previewModeBox">🔎 <b>Preview Mode</b><br>Form-এর design দেখা যাচ্ছে। Login/Registration ON করলে Deposit Submit করা যাবে।</div>':'')+'<div class="field"><label>Deposit Amount (৳)</label><input id="depAmount" type="number" min="1" max="1000000" step="0.01" placeholder="যেমন 500"></div><div class="field"><label>Transaction ID</label><input id="depTxn" maxlength="100" placeholder="Transaction ID লিখুন"></div><div class="field"><label>Payment Screenshot</label><div class="uploadBox">📷 Screenshot Upload<input id="depShot" type="file" accept="image/jpeg,image/png,image/webp" style="width:100%;margin-top:10px"><img id="depPreview" class="preview"></div></div><button class="btn" style="width:100%" '+(preview?'disabled':'')+' onclick="submitDeposit()">Deposit Submit</button><div id="depErr" class="err"></div></div></div>';
+  const f=document.getElementById('depShot');if(f)f.onchange=()=>{const file=f.files[0],img=document.getElementById('depPreview');if(file){if(file.size>8*1024*1024){document.getElementById('depErr').textContent='Screenshot সর্বোচ্চ 8MB';f.value='';img.style.display='none';return}const r=new FileReader();r.onload=()=>{img.src=r.result;img.style.display='block'};r.readAsDataURL(file)}};
+}
+function renderDepositMethods(){const box=document.getElementById('depositPaymentCards');if(!box)return;const methods=(depositInfo||[]).filter(x=>x.enabled!==false).sort((a,b)=>Number(a.order||999)-Number(b.order||999));if(!methods.length){box.innerHTML='<div class="smallText">কোনো Payment Method চালু নেই।</div>';return}box.innerHTML=methods.map(m=>`<div class="screenCard depositMethodCard" onclick="openPaymentDetail('${esc(m.id)}')"><img class="depositMethodLogo" src="${esc(m.logo||'7543.jpg')}" alt=""><div style="flex:1"><div class="screenCardTitle">${esc(m.name||'Payment')}</div><div class="screenCardSub">${esc(m.account_type||'Personal')} ${m.number?'• '+esc(m.number):''}</div></div><span class="screenArrow">›</span></div>`).join('')}
+function selectDepositMethod(method){depositMethod=method;renderDepositMethods()}
+function updateDepositSelected(){const info=(depositInfo||[]).find(x=>x.id===depositMethod);const box=document.getElementById('selectedPayment');if(box){box.style.display=info?'flex':'none';box.innerHTML=info?'<div style="flex:1"><div class="paySelectedName">'+esc(info.provider||'Payment')+' • '+esc(info.account_type||'Personal')+' • '+esc(info.name)+'</div><strong>'+esc(info.number||'-')+'</strong></div><button class="copyBtn" id="copy-'+esc(info.id)+'" onclick="copyPayNumber(\''+esc(info.id)+'\')">Copy</button>':''}const inst=document.getElementById('depInstruction');if(inst)inst.textContent=info?.instructions||''}
+async function copyPayNumber(method=depositMethod){const info=(depositInfo||[]).find(x=>x.id===method),n=info?.number||'';if(!n)return;try{await navigator.clipboard.writeText(n)}catch{const t=document.createElement('textarea');t.value=n;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}const b=document.getElementById('copy-'+method);if(b){b.classList.add('copied');b.textContent='✓ Copied';setTimeout(()=>{b.classList.remove('copied');b.textContent='Copy'},1500)}}
+function toastMsg(msg){const e=document.getElementById('depErr');if(e){e.className='err success';e.textContent=msg;setTimeout(()=>{if(e.textContent===msg)e.textContent=''},1600)}}
+function fileToDataURL(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)})}
+async function submitDeposit(){
+  const er=document.getElementById('depErr');er.className='err';er.textContent='';
+  const amount=Number(document.getElementById('depAmount').value),txn=document.getElementById('depTxn').value.trim(),file=document.getElementById('depShot').files[0];
+  if(!Number.isFinite(amount)||amount<=0){er.textContent='সঠিক Deposit Amount দিন';return}
+  if(!/^[A-Za-z0-9._-]{3,100}$/.test(txn)){er.textContent='সঠিক Transaction ID দিন';return}
+  if(!file){er.textContent='Payment Screenshot upload করুন';return}
+  if(file.size>8*1024*1024){er.textContent='Screenshot সর্বোচ্চ 8MB';return}
+  try{const screenshot=await fileToDataURL(file);const j=await api('/api/user/deposits',{method:'POST',body:JSON.stringify({method:depositMethod,amount,transaction_id:txn,screenshot})});er.className='err success';er.textContent=j.message||'Deposit request জমা হয়েছে';document.getElementById('depAmount').value='';document.getElementById('depTxn').value='';document.getElementById('depShot').value='';document.getElementById('depPreview').style.display='none';await loadDepositHistory()}catch(e){er.textContent=e.message}
+}
+let withdrawMethod='bkash',withdrawBalanceType='winning',withdrawInfo=null,withdrawConfig={notice:'প্রিয় User, আপনি সর্বনিম্ন ৳100 থেকে সর্বোচ্চ ৳10,000 টাকা Withdraw করতে পারবেন। ধন্যবাদ।',min_amount:100,max_amount:10000,methods:[{id:'bkash',name:'bKash',logo:'💗',enabled:true,order:1},{id:'nagad',name:'Nagad',logo:'🟠',enabled:true,order:2},{id:'rocket',name:'Rocket',logo:'🚀',enabled:true,order:3},{id:'upay',name:'Upay',logo:'🟣',enabled:true,order:4}]};
+function renderWithdrawMethods(){
+  const methods=(withdrawConfig.methods||[]).filter(m=>m.enabled!==false).sort((a,b)=>Number(a.order||99)-Number(b.order||99));
+  const box=document.getElementById('wdMethods');
+  if(!box)return;
+  if(!methods.length){box.innerHTML='<div class="smallText">কোনো Withdraw method চালু নেই</div>';return;}
+  if(!methods.some(m=>m.id===withdrawMethod))withdrawMethod=methods[0].id;
+  box.innerHTML=methods.map(m=>'<button type="button" class="payChoice'+(m.id===withdrawMethod?' active':'')+'" id="wdM-'+esc(m.id)+'" onclick="selectWithdrawMethod(\''+esc(m.id)+'\')">'+(m.logo&&String(m.logo).startsWith('http')?'<img src="'+esc(m.logo)+'" style="width:22px;height:22px;vertical-align:middle;border-radius:4px;margin-right:4px" alt="">':esc(m.logo||'💳'))+' '+esc(m.name||m.id)+'</button>').join('');
+}
+async function openWithdraw(){
+  setPageState('withdraw');
+  const preview=!authToken()&&!loginOtpEnabled;
+  if(!authToken()&&!preview){openAuth('withdraw');return}
+  enterScreen('withdraw');
+  const v=document.getElementById('view');
+  if(preview){
+    v.innerHTML='<div class="screenTop"><button class="screenBack" onclick="screenBack()">‹</button><div class="screenTitle">💸 Withdraw</div></div><div class="screenBody"><div class="previewModeBox">🔎 <b>Preview Mode</b><br>Real withdrawal বন্ধ আছে। Login করলে Withdraw করতে পারবেন।</div></div>';
+    return;
+  }
+  v.innerHTML='<div class="screenTop"><button class="screenBack" onclick="screenBack()">‹</button><div class="screenTitle">💸 Withdraw</div></div><div class="screenBody"><div id="wdNotice" class="homeNotice" style="margin:0 0 12px;background:#e8f8ef;border:1px solid #b7e6c9;color:#123"><b style="color:#0a7a45">নোটিশ</b><div id="wdNoticeText" style="margin-top:6px;font-size:14px;line-height:1.45">Loading...</div></div><div class="withdrawPanel"><b>Payment Method</b><div class="paymentChoices" id="wdMethods" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div><div class="field"><label>Withdraw From</label><div class="withdrawBalance"><button type="button" id="wdWinning" class="active" onclick="selectWithdrawBalance(\'winning\')">🏆 Winning Balance<br><span id="wdWinningBal">৳ 0.00</span></button><button type="button" id="wdGaming" onclick="selectWithdrawBalance(\'gaming\')">🎮 Gaming Balance<br><span id="wdGamingBal">৳ 0.00</span></button></div></div><div class="field"><label>Account Holder Name *</label><input id="wdName" maxlength="80" placeholder="নাম লিখুন" autocomplete="name"></div><div class="field"><label>Mobile Number *</label><input id="wdAccount" inputmode="numeric" maxlength="14" placeholder="01XXXXXXXXX" autocomplete="tel"></div><div class="field"><label>Withdraw Amount (৳) *</label><input id="wdAmount" type="number" min="100" max="10000" step="1" placeholder="যেমন 500"></div><div class="smallText" id="wdLimitText">সর্বনিম্ন ৳100 — সর্বোচ্চ ৳10,000</div><button type="button" class="btn" style="width:100%;margin-top:12px" id="wdSubmitBtn" onclick="submitWithdrawal()">Withdrawal Submit</button><div id="wdErr" class="err"></div></div><div class="withdrawHistory"><h3 style="color:#202522;font-size:19px">📜 Withdrawal History</h3><div id="wdHistory">Loading...</div></div></div>';
+  try{
+    try{
+      const j=await api('/api/withdraw/config');
+      if(j&&j.config)withdrawConfig=j.config;
+    }catch(cfgErr){console.warn('withdraw config',cfgErr.message)}
+    renderWithdrawMethods();
+    const nt=document.getElementById('wdNoticeText');
+    if(nt)nt.textContent=withdrawConfig.notice||'প্রিয় User, আপনি সর্বনিম্ন ৳100 থেকে সর্বোচ্চ ৳10,000 টাকা Withdraw করতে পারবেন। ধন্যবাদ।';
+    const mn=Number(withdrawConfig.min_amount||100),mx=Number(withdrawConfig.max_amount||10000);
+    const lt=document.getElementById('wdLimitText');if(lt)lt.textContent='সর্বনিম্ন ৳'+mn+' — সর্বোচ্চ ৳'+mx;
+    const amt=document.getElementById('wdAmount');if(amt){amt.min=mn;amt.max=mx;}
+    await refreshWithdrawalBalances();
+    await loadWithdrawalHistory();
+  }catch(e){
+    const er=document.getElementById('wdErr');
+    if(er)er.textContent=e.message||'Withdraw page load failed';
+  }
+}
+function selectWithdrawMethod(method){
+  withdrawMethod=method;
+  document.querySelectorAll('#wdMethods .payChoice').forEach(btn=>{btn.classList.toggle('active',btn.id==='wdM-'+method)});
+}
+function selectWithdrawBalance(type){
+  withdrawBalanceType=type;
+  document.getElementById('wdWinning')?.classList.toggle('active',type==='winning');
+  document.getElementById('wdGaming')?.classList.toggle('active',type==='gaming');
+}
+async function submitWithdrawal(){
+  const er=document.getElementById('wdErr');if(!er)return;
+  er.className='err';er.textContent='';
+  const btn=document.getElementById('wdSubmitBtn');
+  const name=(document.getElementById('wdName')?.value||'').trim();
+  const account=(document.getElementById('wdAccount')?.value||'').trim();
+  const amount=Number(document.getElementById('wdAmount')?.value);
+  const mn=Number(withdrawConfig?.min_amount||100),mx=Number(withdrawConfig?.max_amount||10000);
+  if(!withdrawMethod){er.textContent='Payment Method সিলেক্ট করুন';return}
+  if(!name||name.length<2){er.textContent='Account Holder Name দিন';return}
+  if(!/^(01\d{9}|(?:\+880|880)1\d{9})$/.test(account)){er.textContent='সঠিক Mobile Number দিন (01XXXXXXXXX)';return}
+  if(!Number.isFinite(amount)||amount<mn||amount>mx){er.textContent='Withdrawal amount ৳'+mn+' থেকে ৳'+mx+' এর মধ্যে হতে হবে';return}
+  if(btn){btn.disabled=true;btn.textContent='Submitting...'}
+  try{
+    const j=await api('/api/user/withdrawals',{method:'POST',body:JSON.stringify({method:withdrawMethod,account_number:account,account_name:name,amount,balance_type:withdrawBalanceType})});
+    er.className='err success';
+    er.textContent=j.message||'Withdrawal request জমা হয়েছে। Admin approval-এর অপেক্ষায়।';
+    const n=document.getElementById('wdName');if(n)n.value='';
+    const a=document.getElementById('wdAccount');if(a)a.value='';
+    const am=document.getElementById('wdAmount');if(am)am.value='';
+    await refreshDashboard();
+    await refreshWithdrawalBalances();
+    await loadWithdrawalHistory();
+  }catch(e){er.textContent=e.message||'Withdrawal failed'}
+  finally{if(btn){btn.disabled=false;btn.textContent='Withdrawal Submit'}}
+}
+async function refreshWithdrawalBalances(){
+  try{
+    const j=await api('/api/user/dashboard');
+    const w=document.getElementById('wdWinningBal');
+    const g=document.getElementById('wdGamingBal');
+    if(w)w.textContent='৳ '+Number(j.dashboard.winning_balance||0).toFixed(2);
+    if(g)g.textContent='৳ '+Number(j.dashboard.gaming_balance||0).toFixed(2);
+    window._gamingBal=Number(j.dashboard.gaming_balance||0);
+    window._winningBal=Number(j.dashboard.winning_balance||0);
+  }catch(e){console.warn('wd bal',e.message)}
+}
+async function loadWithdrawalHistory(){const box=document.getElementById('wdHistory');if(!box)return;try{const j=await api('/api/user/withdrawals');if(!j.withdrawals.length){box.innerHTML='<div class="smallText">এখনো কোনো Withdrawal নেই।</div>';return}box.innerHTML=j.withdrawals.map(d=>{const st=d.status==='approved'?'Approved':d.status==='rejected'?'Rejected':'Pending';const acct=String(d.account_number||'');const masked=acct.length>6?acct.slice(0,3)+'****'+acct.slice(-3):acct;return '<div class="depRow"><div class="depTop"><b>'+esc(String(d.method).toUpperCase())+' • ৳'+Number(d.amount).toFixed(2)+'</b><span class="depStatus '+esc(d.status)+'">'+st+'</span></div><div class="smallText">Name: '+esc(d.account_name||'-')+' • Account: '+esc(masked)+' • '+esc(d.balance_type||'winning')+' balance</div><div class="smallText">'+new Date(d.created_at).toLocaleString()+'</div>'+(d.note?'<div class="smallText">Note: '+esc(d.note)+'</div>':'')+'</div>'}).join('')}catch(e){box.textContent=e.message}}
+async function loadDepositHistory(){const box=document.getElementById('depHistory');if(!box)return;try{const j=await api('/api/user/deposits');if(!j.deposits.length){box.innerHTML='<div class="smallText">এখনো কোনো Deposit নেই।</div>';return}box.innerHTML=j.deposits.map(d=>{const st=d.status==='approved'?'Approved':d.status==='rejected'?'Rejected':'Pending';return '<div class="depRow"><div class="depTop"><b>'+esc(String(d.method).toUpperCase())+' • ৳'+Number(d.amount).toFixed(2)+'</b><span class="depStatus '+esc(d.status)+'">'+st+'</span></div><div class="smallText">TXN: '+esc(d.transaction_id||'-')+'</div><div class="smallText">'+new Date(d.created_at).toLocaleString()+'</div></div>'}).join('')}catch(e){box.textContent=e.message}}
+let statementFilter='all';
+async function openStatement(){
+  setPageState('statement');
+  const preview=!authToken()&&!loginOtpEnabled;
+  if(!authToken()&&!preview){openAuth('statement');return}
+  if(preview){const v=document.getElementById('view');v.classList.add('show');v.innerHTML='<h3>🏷️ My Statement</h3><div class="previewModeBox">🔎 <b>Preview Mode</b><br>এখানে Statement page-এর নাম, Logo ও layout যাচাই করা যাবে। Real account data দেখানো হচ্ছে না।</div><div class="item">Statement preview</div>';return;}
+  const v=document.getElementById('view');v.classList.add('show');
+  v.innerHTML='<h3>🧾 My Statement</h3><p>আপনার Wallet-এর সব balance movement ও transaction history এখানে দেখা যাবে।</p><div class="statementPanel"><div class="statementFilters"><button id="txAll" class="active" onclick="setStatementFilter(\'all\')">All</button><button id="txGaming" onclick="setStatementFilter(\'gaming\')">Gaming</button><button id="txWinning" onclick="setStatementFilter(\'winning\')">Winning</button><button id="txDeposit" onclick="setStatementFilter(\'deposit\')">Deposit</button><button id="txWithdraw" onclick="setStatementFilter(\'withdrawal\')">Withdrawal</button><button id="txOther" onclick="setStatementFilter(\'other\')">Other</button></div><div id="statementList">Loading...</div></div>';
+  await loadStatement();
+}
+function setStatementFilter(f){statementFilter=f;['all','gaming','winning','deposit','withdrawal','other'].forEach(x=>document.getElementById('tx'+(x==='all'?'All':x==='gaming'?'Gaming':x==='winning'?'Winning':x==='deposit'?'Deposit':x==='withdrawal'?'Withdraw':'Other'))?.classList.toggle('active',x===f));loadStatement()}
+async function loadStatement(){const box=document.getElementById('statementList');if(!box)return;try{const j=await api('/api/user/transactions');let rows=j.transactions||[];rows=rows.filter(t=>{if(statementFilter==='all')return true;if(statementFilter==='gaming'||statementFilter==='winning')return t.balance_type===statementFilter;if(statementFilter==='deposit'||statementFilter==='withdrawal')return t.type===statementFilter;return !['deposit','withdrawal'].includes(t.type)});if(!rows.length){box.innerHTML='<div class="smallText">এখনো কোনো transaction নেই।</div>';return}box.innerHTML=rows.map(t=>{const change=Number(t.balance_change??0),cls=change>0?'plus':change<0?'minus':'zero',sign=change>0?'+':change<0?'−':'';const type=String(t.type||'').replace(/_/g,' ');const status=String(t.status||'pending');const bal=t.balance_after==null?'—':'৳ '+Number(t.balance_after).toFixed(2);return '<div class="txRow"><div class="txTop"><b>'+esc(type.toUpperCase())+' • '+esc(t.balance_type||'-')+'</b><span class="txAmount '+cls+'">'+sign+'৳'+Math.abs(change).toFixed(2)+'</span></div><div class="txMeta">Status: '+esc(status)+' • Ref: '+esc(t.reference||'-')+'</div><div class="txMeta">'+esc(new Date(t.created_at).toLocaleString())+(t.note?' • '+esc(t.note):'')+'</div><div class="txBalance">Balance: ৳ '+(t.balance_before==null?'—':Number(t.balance_before).toFixed(2))+' → '+bal+'</div></div>'}).join('')}catch(e){box.textContent=e.message}}
+async function loadProfile(){try{const j=await api('/api/auth/me');currentUser=j.user;refreshDashboard();document.getElementById('profileContent').innerHTML='<div class="profileBox"><b>User ID:</b> '+esc(currentUser.user_code)+'<br><b>Email:</b> '+esc(currentUser.email||'-')+'</div>';document.getElementById('profileName').value=currentUser.name||'';profileModal.classList.add('show')}catch(e){localStorage.removeItem('ludo_user_token');currentUser=null;authModal.classList.add('show')}}
+document.getElementById('profileBtn').onclick=()=>{setPageState('profile');authToken()?loadProfile():openAuth()};document.getElementById('closeAuth').onclick=()=>close(authModal);document.getElementById('closeProfile').onclick=()=>close(profileModal);
+document.getElementById('sendOtp').onclick=async()=>{const email=document.getElementById('email').value.trim();const btn=document.getElementById('sendOtp');const prev=btn.textContent;btn.disabled=true;btn.textContent='পাঠানো হচ্ছে...';document.getElementById('authErr').textContent='';const ctrl=new AbortController();const to=setTimeout(()=>ctrl.abort(),12000);try{const j=await api('/api/auth/request-otp',{method:'POST',body:JSON.stringify({email}),signal:ctrl.signal});pendingEmail=email;document.getElementById('emailStep').classList.add('hidden');document.getElementById('otpStep').classList.remove('hidden');document.getElementById('authErr').className='err success';document.getElementById('authErr').textContent=j.dev_otp?'Test OTP: '+j.dev_otp:'OTP আপনার Email-এ পাঠানো হয়েছে। Spam/Promotions ফোল্ডারও চেক করুন।';document.getElementById('otp').focus()}catch(e){document.getElementById('authErr').className='err';document.getElementById('authErr').textContent=(e.name==='AbortError'?'সময় শেষ। আবার চেষ্টা করুন।':'')||e.message||'OTP পাঠানো যায়নি'}finally{clearTimeout(to);btn.disabled=false;btn.textContent=prev}};
+document.getElementById('verifyOtp').onclick=async()=>{try{const j=await api('/api/auth/verify-otp',{method:'POST',body:JSON.stringify({email:pendingEmail,otp:document.getElementById('otp').value.trim()})});localStorage.setItem('ludo_user_token',j.token);currentUser=j.user;document.body.classList.remove('logged-out');renderQuick();setupSupportFloat(window._supportWidget?{supportWidget:window._supportWidget}:{});const action=pendingAction;pendingAction='';close(authModal);await refreshDashboard();if(action==='deposit')openDeposit();else if(action==='withdraw')openWithdraw();else if(action==='statement')openStatement();else loadProfile()}catch(e){document.getElementById('authErr').className='err';document.getElementById('authErr').textContent=e.message}};
+document.getElementById('backEmail').onclick=()=>{document.getElementById('otpStep').classList.add('hidden');document.getElementById('emailStep').classList.remove('hidden');document.getElementById('authErr').textContent=''};
+document.getElementById('resendOtp').onclick=()=>document.getElementById('sendOtp').click();document.getElementById('saveProfile').onclick=async()=>{try{const j=await api('/api/auth/profile',{method:'PUT',body:JSON.stringify({name:document.getElementById('profileName').value.trim()})});currentUser=j.user;document.getElementById('profileErr').className='err success';document.getElementById('profileErr').textContent='Profile saved';}catch(e){document.getElementById('profileErr').className='err';document.getElementById('profileErr').textContent=e.message}};
+document.getElementById('logoutUser').onclick=()=>{localStorage.removeItem('ludo_user_token');currentUser=null;setPageState('home');document.body.classList.add('logged-out');renderQuick();setupSupportFloat(window._supportWidget?{supportWidget:window._supportWidget}:{});close(profileModal);openAuth()};
 load();
-</script>
-</body></html>
+// Keep Admin changes live without reopening/resetting the current page.
+setInterval(async()=>{try{const r=await fetch('/api/site?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;const d=await r.json();const next=(d.mainOptions||[]).filter(x=>x.visible);const oldSig=JSON.stringify(all.map(x=>[x.id,x.name,x.logo,x.icon,x.order]));const newSig=JSON.stringify(next.map(x=>[x.id,x.name,x.logo,x.icon,x.order]));if(oldSig!==newSig){all=next;renderQuick();}if(d.helpLinks){window._helpLinks=d.helpLinks;renderPublicLinks()}if(d.supportWidget){window._supportWidget=d.supportWidget;setupSupportFloat(d)}loginOtpEnabled=d.system?.user_login_otp!==false;document.body.classList.toggle('preview-mode',!authToken()&&!loginOtpEnabled);}catch{}} ,8000);
+</script><script src="features-ui.js?v=20260913-SPLASH"></script></body></html>

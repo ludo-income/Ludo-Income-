@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: ludo-baji
+    env: node
+    buildCommand: npm install
+    startCommand: npm start

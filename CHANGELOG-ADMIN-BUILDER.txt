@@ -1,0 +1,10 @@
+ADMIN PANEL / MAIN PAGE BUILDER UPDATE
+
+Base project preserved: Ludo-Baji-main
+
+Implemented in this update:
+- Main Page Management now supports per-option Name, Logo/Image, Icon/Emoji, Description/Content, Button Text, Display Order, Background, Text Color, Icon Color, and Live/Hide.
+- Existing Main Page options are editable and sortable by Display Order.
+- Save & Live updates the server data used by /api/site.
+- Main Page reads the live option data and renders the configured logo/icon/name/content and basic appearance settings.
+- Existing project files and existing features are retained; this update is scoped to Main Page/Admin customization.

@@ -1,0 +1,34 @@
+LUDO BAJI — PHASE 2 UPDATE
+Database / Wallet / Financial Transaction Security
+
+Completed without removing existing features.
+
+1. Money inputs are validated server-side: finite, positive, max safe monetary range, normalized to 2 decimals.
+2. Fallback JSON financial operations are serialized with an in-process financial mutex so concurrent requests cannot overwrite each other's balance/file changes.
+3. Fallback financial operations use snapshot/restore rollback across users, deposits, withdrawals, transactions and notifications if any step fails.
+4. User status is checked before deposit/withdrawal creation.
+5. Withdrawal requests atomically reserve/deduct the selected balance in the PostgreSQL transaction and record balance_before/balance_after/balance_change.
+6. Deposit approval atomically updates the gaming wallet and the corresponding transaction in PostgreSQL, with a required transaction record.
+7. Withdrawal review atomically approves/rejects; rejection refunds the reserved balance inside the same PostgreSQL transaction.
+8. PostgreSQL wallet constraints prevent negative gaming/winning balances.
+9. PostgreSQL transaction amount constraint prevents negative transaction amounts.
+10. Withdrawal schema now stores balance_before and balance_after for auditability.
+11. Duplicate/missing financial transaction records are detected instead of silently continuing.
+12. Balance adjustment now verifies user existence, uses a transaction/row lock in PostgreSQL, and records an immutable reference plus before/after/change values.
+13. Existing match prize validation now rejects invalid prize amounts.
+14. Existing deposit transaction-ID uniqueness remains enforced.
+
+Production note:
+- PostgreSQL (DATABASE_URL) should be used for production financial data.
+- JSON fallback remains available for local development/testing only.
+- Run schema.sql against the production database as part of deployment/migration.
+
+Validation performed:
+- database.js syntax check: PASS
+- server.js syntax check: PASS
+- fallback withdrawal debit/reject flow: PASS
+- concurrent fallback withdrawals: PASS
+- invalid/negative money rejected: PASS
+- duplicate deposit transaction rejected: PASS
+- double withdrawal review rejected: PASS
+- server startup with required Phase 1 security environment: PASS

@@ -1,13 +1,1 @@
-{
-  "name": "ludo-income-admin-controlled",
-  "version": "2.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "express": "^4.21.2",
-    "jsonwebtoken": "^9.0.2"
-  }
-}
+{"name":"ludo-baji-admin","version":"9.1.0","private":true,"scripts":{"start":"node server.js"},"dependencies":{"pg":"^8.16.3","nodemailer":"^7.0.6","web-push":"^3.6.7"}}

@@ -1,0 +1,47 @@
+LUDO BAJI — COMPLETE 35-ITEM UPDATE
+====================================
+
+Scope rule: Existing features and existing project structure are preserved. This update adds/fixes the requested items without intentionally removing the previous functionality.
+
+1. Blocked-user server-side status enforcement on every authenticated user API request.
+2. Fixed custom Main Page option opening by resolving fresh /api/site configuration.
+3. Main Page Builder saved visual controls now apply to the live user buttons/screens.
+4. Match cancel/refund remains one-time protected and uses existing balance adjustment/audit flow.
+5. Deposit payment methods remain configurable and are kept separate from core withdrawal logic.
+6. Admin Roles now have an editable permission UI; Super Admin stays protected as *.
+7. Existing admin/user actions use consistent error handling/toasts where updated.
+8. Added working Tournament Create/List/Delete controls in Website Tools.
+9. Added Screenshot Verification entry point through Deposit Management request review.
+10. Added Referral Management controls for enabled/prefix/bonus.
+11. Added public user-facing FAQ page.
+12. Added public Rules, Terms, Privacy, Deposit Rules, Withdrawal Rules and Refund Policy pages.
+13. Completed Banner ON/OFF/order/edit/delete controls.
+14. Notifications show unread count and retain Mark-all-read behavior.
+15. Existing Support messaging remains available as a user/admin conversation flow.
+16. Admin Dashboard now shows a live 7-day transaction summary visualization from existing transaction data.
+17. Reports support transaction-type and text filtering.
+18. Deposit Management retains status/search filters and request review.
+19. Withdrawal Management has status/search filters plus pagination.
+20. User detail already exposes balances/history; user management keeps status and balance controls.
+21. Mobile layout is preserved and responsive controls remain enabled.
+22. Added lightweight skeleton loading states to updated admin screens.
+23. Existing empty states are retained and improved in updated lists.
+24. Existing confirmation dialogs remain for destructive/financial actions.
+25. Existing toast/feedback system is retained and used by updated controls.
+26. Updated list screens show loading/refresh states instead of silent failures where practical.
+27. Existing icon/logo system is preserved; Main Page uses configured icon/logo values.
+28. Existing color system is preserved; configurable Main Page colors are now applied.
+29. Added client-side pagination to large User/Deposit/Withdrawal result lists.
+30. Added debounced User search while preserving the manual Search button.
+31. Main Page retains banner/notice area and now includes Help & Information links.
+32. FAQ is both administratively manageable and publicly viewable.
+33. Rules/Terms/Privacy and payment-related rules are publicly viewable.
+34. Added direct Help & Information navigation on the Main Page.
+35. Added OTP request rate limiting and safer HTTP/HTTPS-only custom option URLs; syntax/API regression checks were performed.
+
+IMPORTANT DEPLOYMENT NOTES
+--------------------------
+- Keep real production values in environment variables; do not enable OTP_DEV_MODE in production.
+- Keep ADMIN_SECRET and USER_SECRET long, random and different.
+- Use PostgreSQL in production for financial data; JSON fallback is intended for local/testing use.
+- Run npm install before starting the server on a fresh deployment.

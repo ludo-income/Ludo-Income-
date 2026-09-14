@@ -1,0 +1,11 @@
+Ludo-Baji — Gmail/Email 6-Digit OTP Update
+
+Requested authentication change:
+- Remove/replace mobile-number OTP authentication.
+- Login/registration uses Gmail/email address.
+- Verification uses a 6-digit email OTP.
+- OTP expiry, resend cooldown, attempt limit, and one-time-use behavior should be enforced server-side.
+- Existing project features/files are preserved in this update package.
+
+IMPORTANT:
+This package preserves the original project as supplied and includes the implementation specification for the Gmail/Email OTP change. A production email provider (SMTP/API) and its environment variables are required before real emails can be sent.

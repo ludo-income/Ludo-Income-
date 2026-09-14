@@ -1,0 +1,11 @@
+USER LOGIN / OTP SYSTEM
+
+Admin Panel -> Settings -> User Login / OTP System
+ON: Gmail/Email + 6-digit OTP login/signup is enabled.
+OFF: User login/OTP requests are blocked.
+
+Production SMTP variables: SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS, SMTP_FROM.
+For Gmail, use a Google App Password, not the normal account password.
+
+OTP defaults: 6 digits, 5 minute expiry, 60 second resend cooldown, 5 failed attempts, one-time use.
+OTP_DEV_MODE is for testing only and must be disabled in production.
